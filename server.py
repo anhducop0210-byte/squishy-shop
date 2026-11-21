@@ -53,6 +53,7 @@ def get_public_products():
         "shopName": data.get("shopName", "Squishy Store"),
         "phone": data.get("phone", "0374860580"),
         "zalo": data.get("zalo", "0374860580"),
+        "facebook": data.get("facebook", "https://www.facebook.com/anhduc.ng.121"),
         "products": data.get("products", [])
     })
 

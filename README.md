@@ -4,6 +4,7 @@
 - **Trang Khách Hàng:** https://anhducop0210-byte.github.io/squishy-shop/
 - **Trang Quản Trị Giá:** https://anhducop0210-byte.github.io/squishy-shop/admin.html *(Mã PIN mặc định: `0580`)*
 - **Liên hệ / Zalo:** `0374860580` (`https://zalo.me/0374860580`)
+- **Facebook:** https://www.facebook.com/anhduc.ng.121
 
 ## 2. Cấu Trúc Dự Án
 ```text
@@ -55,5 +56,6 @@ squishy-shop/
      - Bảng nhập giá nhanh gọn, thân thiện cả trên desktop lẫn mobile, hỗ trợ lưu trực tiếp qua Flask API khi chạy local và lưu `localStorage` + tải file `products.json` khi chạy trên GitHub Pages.
 4. **Thông tin liên hệ cố định:**
    - Số điện thoại & Zalo: **`0374860580`** (`https://zalo.me/0374860580`).
+   - Facebook: **`https://www.facebook.com/anhduc.ng.121`** (bấm vào mở trực tiếp link Facebook).
 5. **Tương thích GitHub Pages:**
    - Giữ kiến trúc static thuần (HTML/CSS/JS) tại root (`index.html`, `admin.html`) sử dụng đường dẫn tương đối (`./data/products.json`, `./images/product_XX.jpg`) để sau khi `git push` là hoạt động ngay trên GitHub Pages mà không cần bước build phức tạp.

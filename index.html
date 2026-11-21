@@ -98,6 +98,20 @@
       transition: background .15s;
     }
     .btn-zalo:hover { background: var(--zalo-hover); }
+    .btn-fb {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      background: #1877F2;
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      transition: background .15s;
+    }
+    .btn-fb:hover { background: #1261C9; }
 
     /* Intro */
     .intro {
@@ -404,25 +418,32 @@
       font-weight: 600;
     }
 
-    /* Floating Zalo */
-    .float-zalo {
+    /* Floating Contact */
+    .float-stack {
       position: fixed;
       right: 20px;
       bottom: 20px;
       z-index: 200;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 8px;
+    }
+    .float-zalo, .float-fb {
       display: inline-flex;
       align-items: center;
       gap: 8px;
-      background: var(--zalo);
       color: #fff;
       text-decoration: none;
-      padding: 11px 18px;
+      padding: 10px 16px;
       border-radius: 999px;
-      font-size: 14px;
+      font-size: 13.5px;
       font-weight: 700;
-      box-shadow: 0 8px 24px rgba(0, 104, 255, 0.32);
     }
+    .float-zalo { background: var(--zalo); box-shadow: 0 8px 24px rgba(0, 104, 255, 0.30); }
     .float-zalo:hover { background: var(--zalo-hover); }
+    .float-fb { background: #1877F2; box-shadow: 0 8px 24px rgba(24, 119, 242, 0.28); }
+    .float-fb:hover { background: #1261C9; }
 
     .toast {
       position: fixed;
@@ -472,6 +493,10 @@
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
         0374860580
       </a>
+      <a class="btn-fb" id="fbTop" href="https://www.facebook.com/anhduc.ng.121" target="_blank" rel="noopener">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M22 12c0-5.52-4.48-10-10-10S2 6.48 2 12c0 4.99 3.66 9.13 8.44 9.88v-6.99H7.9v-2.89h2.54V9.8c0-2.51 1.49-3.89 3.78-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56v1.87h2.78l-.44 2.89h-2.34v6.99C18.34 21.13 22 16.99 22 12z"/></svg>
+        Facebook
+      </a>
       <a class="btn-zalo" id="zaloTop" href="https://zalo.me/0374860580" target="_blank" rel="noopener">
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
         Liên hệ Zalo
@@ -517,20 +542,26 @@
       <p id="modalNote" style="font-size:14px;color:var(--ink-2);"></p>
       <div class="modal-cta">
         <button class="btn-primary-zalo" id="modalZaloBtn">Nhắn Zalo đặt hàng (0374860580)</button>
+        <a class="btn-primary-zalo" style="background:#1877F2;text-align:center;text-decoration:none;" id="modalFbBtn" href="https://www.facebook.com/anhduc.ng.121" target="_blank" rel="noopener">Nhắn Facebook trực tiếp</a>
         <a class="btn-secondary-call" id="modalCallBtn" href="tel:0374860580">Gọi trực tiếp: 0374860580</a>
       </div>
     </div>
   </div>
 </div>
 
-<a class="float-zalo" id="floatZalo" href="https://zalo.me/0374860580" target="_blank" rel="noopener">
-  Zalo · 0374860580
-</a>
+<div class="float-stack">
+  <a class="float-fb" id="floatFb" href="https://www.facebook.com/anhduc.ng.121" target="_blank" rel="noopener">
+    Facebook
+  </a>
+  <a class="float-zalo" id="floatZalo" href="https://zalo.me/0374860580" target="_blank" rel="noopener">
+    Zalo · 0374860580
+  </a>
+</div>
 
 <div class="toast" id="toast"></div>
 
 <footer>
-  <div><span id="footerShop">Squishy Store</span> · Hotline / Zalo: <strong id="footerPhone">0374860580</strong></div>
+  <div><span id="footerShop">Squishy Store</span> · Zalo: <strong id="footerPhone">0374860580</strong> · <a id="footerFb" href="https://www.facebook.com/anhduc.ng.121" target="_blank" rel="noopener">Facebook</a></div>
   <div><a href="admin.html">Quản trị giá</a></div>
 </footer>
 

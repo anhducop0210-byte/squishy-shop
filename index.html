@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Squishy Store — Bộ Sưu Tập Đồ Chơi Bóp Mềm</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #FAF9F6;
+      --surface: #FFFFFF;
+      --ink: #171717;
+      --ink-2: #525252;
+      --ink-3: #8A8A8A;
+      --line: #E8E5DF;
+      --accent: #D94E4E;
+      --zalo: #0068FF;
+      --zalo-hover: #0055D4;
+      --radius: 12px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility; }
+    body {
+      font-family: "Be Vietnam Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      line-height: 1.5;
+      padding-bottom: 96px;
+    }
+
+    /* Header */
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(250, 249, 246, 0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--line);
+    }
+    .nav {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+    }
+    .brand {
+      text-decoration: none;
+      color: var(--ink);
+      display: flex;
+      flex-direction: column;
+    }
+    .brand-name {
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+    }
+    .brand-sub {
+      font-size: 12px;
+      color: var(--ink-3);
+      font-weight: 500;
+    }
+    .nav-right {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-call {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--ink);
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      transition: border-color .15s;
+    }
+    .btn-call:hover { border-color: var(--ink); }
+    .btn-zalo {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      background: var(--zalo);
+      color: #fff;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 600;
+      transition: background .15s;
+    }
+    .btn-zalo:hover { background: var(--zalo-hover); }
+
+    /* Intro */
+    .intro {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 36px 24px 20px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+      border-bottom: 1px solid var(--line);
+    }
+    .intro h1 {
+      font-size: clamp(24px, 3vw, 34px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 6px;
+    }
+    .intro p {
+      font-size: 14.5px;
+      color: var(--ink-2);
+      max-width: 520px;
+    }
+    .intro-meta {
+      font-size: 13px;
+      color: var(--ink-3);
+      font-weight: 500;
+    }
+
+    /* Controls */
+    .controls {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 18px 24px 8px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .cats {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .cats::-webkit-scrollbar { display: none; }
+    .cat-btn {
+      border: 1px solid transparent;
+      background: transparent;
+      color: var(--ink-2);
+      padding: 7px 14px;
+      border-radius: 999px;
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all .15s;
+    }
+    .cat-btn:hover { background: #F0EDE7; color: var(--ink); }
+    .cat-btn.active {
+      background: var(--ink);
+      color: #fff;
+    }
+    .search-sort {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+    .search-wrap {
+      position: relative;
+      width: 240px;
+    }
+    .search-wrap svg {
+      position: absolute;
+      left: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--ink-3);
+      pointer-events: none;
+    }
+    .search-wrap input {
+      width: 100%;
+      padding: 8px 12px 8px 36px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      font-family: inherit;
+      font-size: 13.5px;
+      color: var(--ink);
+      outline: none;
+    }
+    .search-wrap input:focus { border-color: var(--ink); }
+    .sort-select {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 500;
+      color: var(--ink);
+      outline: none;
+      cursor: pointer;
+    }
+
+    /* Product Grid */
+    .grid {
+      max-width: 1280px;
+      margin: 16px auto 0;
+      padding: 0 24px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+    @media (max-width: 1024px) { .grid { grid-template-columns: repeat(3, 1fr); gap: 16px; } }
+    @media (max-width: 720px) { .grid { grid-template-columns: repeat(2, 1fr); gap: 12px; padding: 0 14px; } }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transition: border-color .2s, transform .2s;
+    }
+    .card:hover {
+      border-color: #CFCAC0;
+      transform: translateY(-2px);
+    }
+    .card.sold-out { opacity: 0.65; }
+    .thumb-wrap {
+      position: relative;
+      aspect-ratio: 1 / 1;
+      background: #F3F1EC;
+      overflow: hidden;
+      cursor: pointer;
+    }
+    .thumb-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .35s ease;
+    }
+    .card:hover .thumb-wrap img { transform: scale(1.04); }
+    .tag-pill {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 3px 9px;
+      border-radius: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      text-transform: uppercase;
+      background: var(--ink);
+      color: #fff;
+    }
+    .tag-pill.hot { background: var(--accent); }
+    .tag-pill.sold { background: #525252; left: auto; right: 10px; }
+
+    .card-body {
+      padding: 14px;
+      display: flex;
+      flex-direction: column;
+      flex: 1;
+      gap: 4px;
+    }
+    .card-cat {
+      font-size: 11.5px;
+      color: var(--ink-3);
+      font-weight: 500;
+    }
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.35;
+      cursor: pointer;
+    }
+    .card-note {
+      font-size: 12.5px;
+      color: var(--ink-2);
+      margin-top: 2px;
+    }
+    .price-row {
+      margin-top: auto;
+      padding-top: 10px;
+      display: flex;
+      align-items: baseline;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .price-now {
+      font-size: 16px;
+      font-weight: 800;
+      color: var(--ink);
+    }
+    .price-old {
+      font-size: 12.5px;
+      color: var(--ink-3);
+      text-decoration: line-through;
+    }
+    .price-ask {
+      font-size: 13.5px;
+      font-weight: 600;
+      color: var(--zalo);
+    }
+    .btn-card {
+      margin-top: 10px;
+      width: 100%;
+      padding: 9px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .15s;
+    }
+    .btn-card:hover {
+      background: var(--zalo);
+      border-color: var(--zalo);
+      color: #fff;
+    }
+
+    /* Modal */
+    .modal-bg {
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 15, 15, 0.56);
+      backdrop-filter: blur(4px);
+      z-index: 300;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+    }
+    .modal-bg.open { display: flex; }
+    .modal {
+      background: var(--surface);
+      border-radius: 16px;
+      max-width: 760px;
+      width: 100%;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 1.15fr 1fr;
+      position: relative;
+      box-shadow: 0 24px 60px rgba(0,0,0,0.22);
+    }
+    @media (max-width: 680px) {
+      .modal { grid-template-columns: 1fr; max-height: 92vh; overflow-y: auto; }
+    }
+    .modal-close {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      border: 1px solid var(--line);
+      background: rgba(255,255,255,0.92);
+      color: var(--ink);
+      font-size: 16px;
+      cursor: pointer;
+      display: grid;
+      place-items: center;
+    }
+    .modal-img { width: 100%; height: 100%; min-height: 300px; object-fit: cover; display: block; }
+    .modal-info { padding: 28px 24px; display: flex; flex-direction: column; gap: 10px; }
+    .modal-info h2 { font-size: 22px; font-weight: 800; letter-spacing: -0.02em; }
+    .modal-cta { margin-top: auto; display: flex; flex-direction: column; gap: 8px; padding-top: 16px; }
+    .btn-primary-zalo {
+      width: 100%;
+      padding: 12px;
+      border-radius: 10px;
+      border: none;
+      background: var(--zalo);
+      color: #fff;
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+    .btn-primary-zalo:hover { background: var(--zalo-hover); }
+    .btn-secondary-call {
+      width: 100%;
+      padding: 11px;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      background: var(--surface);
+      color: var(--ink);
+      text-align: center;
+      text-decoration: none;
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    /* Floating Zalo */
+    .float-zalo {
+      position: fixed;
+      right: 20px;
+      bottom: 20px;
+      z-index: 200;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--zalo);
+      color: #fff;
+      text-decoration: none;
+      padding: 11px 18px;
+      border-radius: 999px;
+      font-size: 14px;
+      font-weight: 700;
+      box-shadow: 0 8px 24px rgba(0, 104, 255, 0.32);
+    }
+    .float-zalo:hover { background: var(--zalo-hover); }
+
+    .toast {
+      position: fixed;
+      left: 50%;
+      bottom: 24px;
+      transform: translateX(-50%) translateY(16px);
+      background: var(--ink);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 10px;
+      font-size: 13.5px;
+      font-weight: 500;
+      opacity: 0;
+      pointer-events: none;
+      transition: all .2s;
+      z-index: 400;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    footer {
+      max-width: 1280px;
+      margin: 48px auto 0;
+      padding: 24px;
+      border-top: 1px solid var(--line);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      font-size: 13px;
+      color: var(--ink-3);
+    }
+    footer a { color: var(--ink-2); text-decoration: none; font-weight: 600; }
+    footer a:hover { color: var(--ink); }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="./" class="brand">
+      <span class="brand-name" id="shopTitle">Squishy Store</span>
+      <span class="brand-sub">Ảnh thật 100% · Giao hàng toàn quốc</span>
+    </a>
+    <div class="nav-right">
+      <a class="btn-call" id="phoneTop" href="tel:0374860580">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        0374860580
+      </a>
+      <a class="btn-zalo" id="zaloTop" href="https://zalo.me/0374860580" target="_blank" rel="noopener">
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        Liên hệ Zalo
+      </a>
+    </div>
+  </div>
+</header>
+
+<section class="intro">
+  <div>
+    <h1>Danh mục sản phẩm</h1>
+    <p>Chọn mẫu bạn thích và nhắn trực tiếp qua Zalo để được tư vấn và chốt đơn nhanh.</p>
+  </div>
+  <div class="intro-meta" id="countMeta">32 sản phẩm</div>
+</section>
+
+<section class="controls">
+  <div class="cats" id="catBar"></div>
+  <div class="search-sort">
+    <div class="search-wrap">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+      <input type="text" id="searchInput" placeholder="Tìm tên sản phẩm..." />
+    </div>
+    <select id="sortSelect" class="sort-select">
+      <option value="default">Mặc định</option>
+      <option value="price_asc">Giá tăng dần</option>
+      <option value="price_desc">Giá giảm dần</option>
+      <option value="name">Tên A – Z</option>
+    </select>
+  </div>
+</section>
+
+<main class="grid" id="productGrid"></main>
+
+<div class="modal-bg" id="modalBg">
+  <div class="modal">
+    <button class="modal-close" id="modalClose" aria-label="Đóng">✕</button>
+    <img id="modalImg" class="modal-img" src="" alt="" />
+    <div class="modal-info">
+      <span id="modalCat" style="font-size:12px;font-weight:600;color:var(--ink-3);text-transform:uppercase;letter-spacing:0.04em;"></span>
+      <h2 id="modalTitle"></h2>
+      <div id="modalPrice"></div>
+      <p id="modalNote" style="font-size:14px;color:var(--ink-2);"></p>
+      <div class="modal-cta">
+        <button class="btn-primary-zalo" id="modalZaloBtn">Nhắn Zalo đặt hàng (0374860580)</button>
+        <a class="btn-secondary-call" id="modalCallBtn" href="tel:0374860580">Gọi trực tiếp: 0374860580</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<a class="float-zalo" id="floatZalo" href="https://zalo.me/0374860580" target="_blank" rel="noopener">
+  Zalo · 0374860580
+</a>
+
+<div class="toast" id="toast"></div>
+
+<footer>
+  <div><span id="footerShop">Squishy Store</span> · Hotline / Zalo: <strong id="footerPhone">0374860580</strong></div>
+  <div><a href="admin.html">Quản trị giá</a></div>
+</footer>
+
+<script>
+  let SHOP = { shopName: "Squishy Store", phone: "0374860580", zalo: "0374860580", products: [] };
+  let activeCat = "Tất cả";
+
+  function formatVND(val) {
+    if (val === null || val === undefined || val === "" || isNaN(Number(val)) || Number(val) <= 0) return null;
+    return Number(val).toLocaleString("vi-VN") + "₫";
+  }
+
+  function showToast(msg) {
+    const t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    clearTimeout(window._tTimer);
+    window._tTimer = setTimeout(() => t.classList.remove("show"), 2500);
+  }
+
+  function contactZalo(product) {
+    const pText = formatVND(product.price) || "Liên hệ";
+    const msg = `Chào shop, mình muốn hỏi mua mẫu: ${product.name} (Giá: ${pText})`;
+    if (navigator.clipboard) navigator.clipboard.writeText(msg).catch(() => {});
+    showToast("Đã copy tên sản phẩm, đang mở Zalo...");
+    window.open(`https://zalo.me/${SHOP.zalo}`, "_blank");
+  }
+
+  function renderCats() {
+    const counts = { "Tất cả": SHOP.products.length };
+    SHOP.products.forEach(p => { counts[p.category] = (counts[p.category] || 0) + 1; });
+    document.getElementById("catBar").innerHTML = Object.entries(counts).map(([cat, cnt]) =>
+      `<button class="cat-btn ${cat === activeCat ? 'active' : ''}" onclick="setCat('${cat.replace(/'/g,"\\'")}')">${cat} (${cnt})</button>`
+    ).join("");
+  }
+
+  function setCat(cat) {
+    activeCat = cat;
+    renderCats();
+    renderGrid();
+  }
+
+  function renderGrid() {
+    const q = document.getElementById("searchInput").value.trim().toLowerCase();
+    const sort = document.getElementById("sortSelect").value;
+    let list = SHOP.products.filter(p => {
+      const okCat = activeCat === "Tất cả" || p.category === activeCat;
+      const okQ = !q || p.name.toLowerCase().includes(q) || (p.note || "").toLowerCase().includes(q) || p.category.toLowerCase().includes(q);
+      return okCat && okQ;
+    });
+
+    if (sort === "price_asc") list.sort((a, b) => (a.price || 9e9) - (b.price || 9e9));
+    else if (sort === "price_desc") list.sort((a, b) => (b.price || 0) - (a.price || 0));
+    else if (sort === "name") list.sort((a, b) => a.name.localeCompare(b.name, "vi"));
+
+    document.getElementById("countMeta").textContent = `${list.length} sản phẩm`;
+    const grid = document.getElementById("productGrid");
+    if (!list.length) {
+      grid.innerHTML = `<div style="grid-column:1/-1;text-align:center;padding:56px 0;color:var(--ink-3);font-size:14px;">Không tìm thấy sản phẩm phù hợp.</div>`;
+      return;
+    }
+
+    grid.innerHTML = list.map(p => {
+      const priceStr = formatVND(p.price);
+      const oldStr = formatVND(p.oldPrice);
+      const badgeHtml = p.badge === "hot" ? `<span class="tag-pill hot">Hot</span>`
+        : p.badge === "new" ? `<span class="tag-pill">Mới</span>`
+        : p.badge === "best" ? `<span class="tag-pill">Bán chạy</span>` : "";
+      const soldHtml = p.status === "out_of_stock" ? `<span class="tag-pill sold">Hết hàng</span>` : "";
+      return `
+        <article class="card ${p.status === 'out_of_stock' ? 'sold-out' : ''}">
+          <div class="thumb-wrap" onclick="openModal(${p.id})">
+            <img src="${p.image}" alt="${p.name}" loading="lazy" />
+            ${badgeHtml}${soldHtml}
+          </div>
+          <div class="card-body">
+            <div class="card-cat">${p.category}</div>
+            <div class="card-title" onclick="openModal(${p.id})">${p.name}</div>
+            ${p.note ? `<div class="card-note">${p.note}</div>` : ""}
+            <div class="price-row">
+              ${priceStr ? `<span class="price-now">${priceStr}</span>` : `<span class="price-ask">Liên hệ giá</span>`}
+              ${oldStr ? `<span class="price-old">${oldStr}</span>` : ""}
+            </div>
+            <button class="btn-card" onclick='contactZalo(${JSON.stringify({name:p.name,price:p.price}).replace(/'/g,"&#39;")})'>
+              Đặt qua Zalo
+            </button>
+          </div>
+        </article>`;
+    }).join("");
+  }
+
+  function openModal(id) {
+    const p = SHOP.products.find(x => x.id === id);
+    if (!p) return;
+    document.getElementById("modalImg").src = p.image;
+    document.getElementById("modalCat").textContent = p.category;
+    document.getElementById("modalTitle").textContent = p.name;
+    const priceStr = formatVND(p.price);
+    const oldStr = formatVND(p.oldPrice);
+    document.getElementById("modalPrice").innerHTML = priceStr
+      ? `<span class="price-now" style="font-size:22px;">${priceStr}</span> ${oldStr ? `<span class="price-old">${oldStr}</span>` : ""}`
+      : `<span class="price-ask" style="font-size:15px;">Liên hệ Zalo để nhận báo giá</span>`;
+    document.getElementById("modalNote").textContent = p.note || "Hàng có sẵn, ảnh chụp thật. Nhắn Zalo để được tư vấn và chốt đơn nhanh.";
+    document.getElementById("modalZaloBtn").onclick = () => contactZalo(p);
+    document.getElementById("modalCallBtn").href = `tel:${SHOP.phone}`;
+    document.getElementById("modalCallBtn").textContent = `Gọi trực tiếp: ${SHOP.phone}`;
+    document.getElementById("modalBg").classList.add("open");
+  }
+
+  document.getElementById("modalClose").onclick = () => document.getElementById("modalBg").classList.remove("open");
+  document.getElementById("modalBg").onclick = (e) => { if (e.target.id === "modalBg") e.target.classList.remove("open"); };
+  document.getElementById("searchInput").addEventListener("input", renderGrid);
+  document.getElementById("sortSelect").addEventListener("change", renderGrid);
+
+  async function init() {
+    let loaded = null;
+    try {
+      const r = await fetch("/api/products");
+      if (r.ok) loaded = await r.json();
+    } catch (_) {}
+    if (!loaded) {
+      const localDraft = localStorage.getItem("squishy_shop_data_v1");
+      if (localDraft) {
+        try { loaded = JSON.parse(localDraft); } catch (_) {}
+      }
+    }
+    if (!loaded) {
+      const r2 = await fetch("./data/products.json");
+      loaded = await r2.json();
+    }
+    SHOP = loaded;
+    document.getElementById("shopTitle").textContent = SHOP.shopName || "Squishy Store";
+    document.getElementById("footerShop").textContent = SHOP.shopName || "Squishy Store";
+    document.getElementById("footerPhone").textContent = SHOP.phone || "0374860580";
+    document.getElementById("phoneTop").href = "tel:" + (SHOP.phone || "0374860580");
+    document.getElementById("zaloTop").href = "https://zalo.me/" + (SHOP.zalo || "0374860580");
+    document.getElementById("floatZalo").href = "https://zalo.me/" + (SHOP.zalo || "0374860580");
+    document.getElementById("floatZalo").textContent = "Zalo · " + (SHOP.zalo || "0374860580");
+    renderCats();
+    renderGrid();
+  }
+  init();
+</script>
+</body>
+</html>

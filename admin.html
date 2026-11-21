@@ -1,0 +1,539 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quản Trị Giá — Squishy Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #F7F7F5;
+      --surface: #FFFFFF;
+      --ink: #171717;
+      --ink-2: #525252;
+      --ink-3: #8A8A8A;
+      --line: #E5E5E0;
+      --green: #16A34A;
+      --danger: #DC2626;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { -webkit-font-smoothing: antialiased; }
+    body {
+      font-family: "Be Vietnam Pro", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+    }
+
+    .login-wrap {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 20px;
+    }
+    .login-box {
+      background: var(--surface);
+      border: 1px solid var(--line);
+      padding: 32px 28px;
+      border-radius: 16px;
+      width: 100%;
+      max-width: 380px;
+    }
+    .login-box h1 { font-size: 20px; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.02em; }
+    .login-box p { font-size: 13.5px; color: var(--ink-2); margin-bottom: 20px; }
+    .pin-input {
+      width: 100%;
+      padding: 12px 14px;
+      text-align: center;
+      font-family: inherit;
+      font-size: 20px;
+      letter-spacing: 8px;
+      font-weight: 700;
+      border-radius: 10px;
+      border: 1px solid var(--line);
+      outline: none;
+      margin-bottom: 12px;
+    }
+    .pin-input:focus { border-color: var(--ink); }
+    .btn {
+      border: 1px solid transparent;
+      border-radius: 8px;
+      padding: 9px 16px;
+      font-family: inherit;
+      font-size: 13.5px;
+      font-weight: 600;
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      text-decoration: none;
+      transition: opacity .15s, border-color .15s;
+    }
+    .btn-dark { background: var(--ink); color: #fff; }
+    .btn-dark:hover { opacity: 0.9; }
+    .btn-green { background: var(--green); color: #fff; }
+    .btn-green:hover { opacity: 0.92; }
+    .btn-outline { background: var(--surface); color: var(--ink); border-color: var(--line); }
+    .btn-outline:hover { border-color: var(--ink); }
+    .err-msg { color: var(--danger); font-size: 13px; font-weight: 600; margin-top: 8px; min-height: 18px; }
+
+    .admin-app { display: none; padding-bottom: 84px; }
+    .topbar {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(255,255,255,0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line);
+      padding: 12px 24px;
+    }
+    .topbar-inner {
+      max-width: 1320px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+    }
+    .topbar h2 { font-size: 16px; font-weight: 800; letter-spacing: -0.01em; }
+    .mode-badge {
+      font-size: 11.5px; font-weight: 600; padding: 3px 9px; border-radius: 999px;
+      background: #F1F1EE; color: var(--ink-2); margin-left: 8px;
+    }
+    .top-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+
+    .container { max-width: 1320px; margin: 20px auto; padding: 0 24px; }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .stat-card {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 14px 16px;
+      border: 1px solid var(--line);
+    }
+    .stat-card span { font-size: 12.5px; color: var(--ink-3); font-weight: 500; }
+    .stat-card strong { display: block; font-size: 24px; font-weight: 800; margin-top: 2px; }
+
+    .shop-settings {
+      background: var(--surface);
+      border-radius: 12px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      margin-bottom: 16px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 12px;
+      align-items: end;
+    }
+    .field label { display: block; font-size: 12px; font-weight: 600; color: var(--ink-2); margin-bottom: 5px; }
+    .field input {
+      width: 100%; padding: 8px 11px; border-radius: 8px; border: 1px solid var(--line);
+      font-family: inherit; font-size: 13.5px; outline: none;
+    }
+    .field input:focus { border-color: var(--ink); }
+
+    .filter-bar {
+      display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; align-items: center;
+    }
+    .filter-bar input {
+      flex: 1; min-width: 220px;
+      padding: 9px 13px; border-radius: 8px; border: 1px solid var(--line);
+      background: var(--surface); font-family: inherit; font-size: 13.5px; outline: none;
+    }
+    .filter-bar input:focus { border-color: var(--ink); }
+
+    .table-wrap {
+      background: var(--surface);
+      border-radius: 12px;
+      border: 1px solid var(--line);
+      overflow-x: auto;
+    }
+    table { width: 100%; border-collapse: collapse; min-width: 960px; }
+    th {
+      background: #FAFAF8;
+      text-align: left;
+      padding: 11px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--ink-2);
+      border-bottom: 1px solid var(--line);
+    }
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid #F0F0EC;
+      vertical-align: middle;
+    }
+    tr:hover td { background: #FCFCFA; }
+    .thumb {
+      width: 58px; height: 58px;
+      object-fit: cover;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      display: block;
+    }
+    .cell-input {
+      width: 100%;
+      padding: 7px 10px;
+      border-radius: 7px;
+      border: 1px solid var(--line);
+      font-family: inherit;
+      font-size: 13.5px;
+      outline: none;
+      background: #fff;
+    }
+    .cell-input:focus { border-color: var(--ink); }
+    .price-input { width: 125px; text-align: right; font-weight: 700; }
+    .price-preview { font-size: 11.5px; color: var(--green); font-weight: 600; text-align: right; margin-top: 2px; }
+    .upload-lbl { font-size: 11.5px; color: var(--ink-2); text-decoration: underline; cursor: pointer; display: inline-block; margin-top: 4px; }
+
+    .toast {
+      position: fixed; left: 50%; bottom: 24px;
+      transform: translateX(-50%) translateY(16px);
+      background: var(--ink); color: #fff;
+      padding: 10px 18px; border-radius: 10px; font-weight: 600; font-size: 13.5px;
+      opacity: 0; pointer-events: none; transition: all .2s; z-index: 400;
+    }
+    .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+  </style>
+</head>
+<body>
+
+<div class="login-wrap" id="loginWrap">
+  <div class="login-box">
+    <h1>Quản trị bảng giá</h1>
+    <p>Nhập mã PIN quản trị để chỉnh sửa giá và thông tin sản phẩm. (Mặc định: <strong>0580</strong>)</p>
+    <input type="password" id="pinInput" class="pin-input" placeholder="••••" maxlength="12" />
+    <button class="btn btn-dark" style="width:100%;padding:11px;" id="loginBtn">Đăng nhập</button>
+    <div class="err-msg" id="loginErr"></div>
+    <div style="margin-top:16px;text-align:center;">
+      <a href="./" style="font-size:13px;color:var(--ink-2);text-decoration:none;">← Quay lại trang Khách hàng</a>
+    </div>
+  </div>
+</div>
+
+<div class="admin-app" id="adminApp">
+  <div class="topbar">
+    <div class="topbar-inner">
+      <div style="display:flex;align-items:center;">
+        <h2>Quản trị sản phẩm</h2>
+        <span class="mode-badge" id="modeBadge">Đang kết nối...</span>
+      </div>
+      <div class="top-actions">
+        <a href="./" target="_blank" class="btn btn-outline">Xem trang Khách</a>
+        <button class="btn btn-outline" onclick="downloadJson()">Tải products.json</button>
+        <button class="btn btn-green" onclick="saveAll()">Lưu thay đổi</button>
+        <button class="btn btn-outline" onclick="logout()">Đăng xuất</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="stats">
+      <div class="stat-card"><span>Tổng sản phẩm</span><strong id="stTotal">0</strong></div>
+      <div class="stat-card"><span>Đã nhập giá</span><strong id="stPriced" style="color:var(--green);">0</strong></div>
+      <div class="stat-card"><span>Chưa nhập giá</span><strong id="stUnpriced">0</strong></div>
+      <div class="stat-card"><span>Còn hàng</span><strong id="stInStock">0</strong></div>
+    </div>
+
+    <div class="shop-settings">
+      <div class="field">
+        <label>Tên Shop</label>
+        <input id="cfgShopName" type="text" />
+      </div>
+      <div class="field">
+        <label>Số điện thoại / Zalo</label>
+        <input id="cfgPhone" type="text" />
+      </div>
+      <div class="field">
+        <label>Đổi mã PIN quản trị (tuỳ chọn)</label>
+        <input id="cfgNewPin" type="password" placeholder="Nhập PIN mới..." />
+      </div>
+      <div>
+        <button class="btn btn-dark" style="width:100%;" onclick="saveAll()">Lưu toàn bộ</button>
+      </div>
+    </div>
+
+    <div class="filter-bar">
+      <input id="adminSearch" type="text" placeholder="Tìm theo tên sản phẩm..." oninput="renderTable()" />
+      <select id="adminFilter" class="cell-input" style="width:auto;" onchange="renderTable()">
+        <option value="all">Tất cả sản phẩm</option>
+        <option value="unpriced">Chưa nhập giá</option>
+        <option value="priced">Đã nhập giá</option>
+        <option value="out_of_stock">Hết hàng</option>
+      </select>
+    </div>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th style="width:42px;">#</th>
+            <th style="width:80px;">Ảnh</th>
+            <th>Tên sản phẩm</th>
+            <th style="width:145px;">Danh mục</th>
+            <th style="width:145px;">Giá bán (VNĐ)</th>
+            <th style="width:125px;">Giá cũ</th>
+            <th style="width:120px;">Trạng thái</th>
+            <th style="width:110px;">Nhãn</th>
+            <th style="width:170px;">Ghi chú</th>
+          </tr>
+        </thead>
+        <tbody id="adminTbody"></tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  const CATS = ["Cheese & Bơ", "Trái Cây", "Đồ Ăn & Khoai", "Khổng Lồ", "Bóng Nổ", "Độc Lạ"];
+  let TOKEN = sessionStorage.getItem("squishy_admin_token") || "";
+  let IS_SERVER = false;
+  let DATA = { shopName: "Squishy Store", phone: "0374860580", zalo: "0374860580", adminPin: "0580", products: [] };
+
+  function showToast(msg) {
+    const t = document.getElementById("toast");
+    t.textContent = msg;
+    t.classList.add("show");
+    clearTimeout(window._t);
+    window._t = setTimeout(() => t.classList.remove("show"), 2600);
+  }
+
+  function fmtVND(v) {
+    if (!v || isNaN(Number(v)) || Number(v) <= 0) return "Chưa có giá";
+    return Number(v).toLocaleString("vi-VN") + "₫";
+  }
+
+  async function doLogin() {
+    const pin = document.getElementById("pinInput").value.trim();
+    try {
+      const res = await fetch("/api/admin/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ pin })
+      });
+      if (res.status !== 404 && res.status !== 405) {
+        const j = await res.json();
+        if (!res.ok || !j.ok) {
+          document.getElementById("loginErr").textContent = j.error || "Sai mã PIN!";
+          return;
+        }
+        IS_SERVER = true;
+        TOKEN = j.token;
+        sessionStorage.setItem("squishy_admin_token", TOKEN);
+        await loadAdminData();
+        return;
+      }
+    } catch (_) {}
+
+    // Static / GitHub Pages fallback
+    const rawLocal = localStorage.getItem("squishy_shop_data_v1");
+    let baseData = null;
+    if (rawLocal) {
+      try { baseData = JSON.parse(rawLocal); } catch (_) {}
+    }
+    if (!baseData) {
+      const r = await fetch("./data/products.json");
+      baseData = await r.json();
+    }
+    const expectedPin = String(baseData.adminPin || "0580");
+    if (pin !== expectedPin) {
+      document.getElementById("loginErr").textContent = "Sai mã PIN quản trị!";
+      return;
+    }
+    IS_SERVER = false;
+    TOKEN = "static-ok";
+    sessionStorage.setItem("squishy_admin_token", TOKEN);
+    DATA = baseData;
+    openAdminUI();
+  }
+
+  document.getElementById("loginBtn").onclick = doLogin;
+  document.getElementById("pinInput").addEventListener("keydown", e => { if (e.key === "Enter") doLogin(); });
+
+  async function loadAdminData() {
+    try {
+      const res = await fetch("/api/admin/products", { headers: { "X-Admin-Token": TOKEN } });
+      if (res.ok) {
+        IS_SERVER = true;
+        DATA = await res.json();
+        openAdminUI();
+        return;
+      }
+      if (res.status === 401) {
+        TOKEN = "";
+        sessionStorage.removeItem("squishy_admin_token");
+        return;
+      }
+    } catch (_) {}
+
+    if (TOKEN === "static-ok") {
+      const rawLocal = localStorage.getItem("squishy_shop_data_v1");
+      if (rawLocal) DATA = JSON.parse(rawLocal);
+      else DATA = await (await fetch("./data/products.json")).json();
+      IS_SERVER = false;
+      openAdminUI();
+    }
+  }
+
+  function openAdminUI() {
+    document.getElementById("loginWrap").style.display = "none";
+    document.getElementById("adminApp").style.display = "block";
+    document.getElementById("modeBadge").textContent = IS_SERVER ? "Local Server (tự lưu file)" : "Static Web (lưu trình duyệt + tải JSON)";
+    document.getElementById("cfgShopName").value = DATA.shopName || "Squishy Store";
+    document.getElementById("cfgPhone").value = DATA.phone || "0374860580";
+    updateStats();
+    renderTable();
+  }
+
+  function updateStats() {
+    const total = DATA.products.length;
+    const priced = DATA.products.filter(p => p.price && Number(p.price) > 0).length;
+    const instock = DATA.products.filter(p => p.status !== "out_of_stock").length;
+    document.getElementById("stTotal").textContent = total;
+    document.getElementById("stPriced").textContent = priced;
+    document.getElementById("stUnpriced").textContent = total - priced;
+    document.getElementById("stInStock").textContent = instock;
+  }
+
+  function updateField(id, field, value) {
+    const p = DATA.products.find(x => x.id === id);
+    if (!p) return;
+    if (field === "price" || field === "oldPrice") {
+      const num = value === "" ? null : Number(value);
+      p[field] = (num && num > 0) ? num : null;
+      const pv = document.getElementById(`pv_${field}_${id}`);
+      if (pv) pv.textContent = fmtVND(p[field]);
+    } else {
+      p[field] = value;
+    }
+    updateStats();
+  }
+
+  async function uploadImg(id, input) {
+    if (!input.files || !input.files[0]) return;
+    if (!IS_SERVER) {
+      showToast("Đổi ảnh trực tiếp chỉ hỗ trợ khi chạy local server (START_WEB.bat).");
+      return;
+    }
+    const fd = new FormData();
+    fd.append("file", input.files[0]);
+    const res = await fetch(`/api/admin/upload/${id}`, {
+      method: "POST",
+      headers: { "X-Admin-Token": TOKEN },
+      body: fd
+    });
+    const j = await res.json();
+    if (j.ok) {
+      const p = DATA.products.find(x => x.id === id);
+      if (p) p.image = j.image + "?t=" + Date.now();
+      renderTable();
+      showToast(`Đã cập nhật ảnh cho sản phẩm #${id}`);
+    }
+  }
+
+  function renderTable() {
+    const q = document.getElementById("adminSearch").value.trim().toLowerCase();
+    const flt = document.getElementById("adminFilter").value;
+    const rows = DATA.products.filter(p => {
+      if (q && !p.name.toLowerCase().includes(q)) return false;
+      if (flt === "unpriced" && p.price && Number(p.price) > 0) return false;
+      if (flt === "priced" && (!p.price || Number(p.price) <= 0)) return false;
+      if (flt === "out_of_stock" && p.status !== "out_of_stock") return false;
+      return true;
+    });
+
+    document.getElementById("adminTbody").innerHTML = rows.map(p => `
+      <tr>
+        <td style="font-weight:700;color:var(--ink-3);">${p.id}</td>
+        <td>
+          <img class="thumb" src="./${p.image}" alt="" />
+          ${IS_SERVER ? `<label class="upload-lbl">Đổi ảnh<input type="file" accept="image/*" style="display:none;" onchange="uploadImg(${p.id}, this)" /></label>` : ""}
+        </td>
+        <td><input class="cell-input" value="${(p.name || "").replace(/"/g, "&quot;")}" oninput="updateField(${p.id}, 'name', this.value)" /></td>
+        <td>
+          <select class="cell-input" onchange="updateField(${p.id}, 'category', this.value)">
+            ${CATS.map(c => `<option value="${c}" ${p.category === c ? 'selected' : ''}>${c}</option>`).join("")}
+          </select>
+        </td>
+        <td>
+          <input type="number" step="1000" min="0" class="cell-input price-input" placeholder="50000"
+            value="${p.price ?? ''}" oninput="updateField(${p.id}, 'price', this.value)" />
+          <div class="price-preview" id="pv_price_${p.id}">${fmtVND(p.price)}</div>
+        </td>
+        <td>
+          <input type="number" step="1000" min="0" class="cell-input price-input" style="color:var(--ink-3);width:110px;" placeholder="Giá gạch"
+            value="${p.oldPrice ?? ''}" oninput="updateField(${p.id}, 'oldPrice', this.value)" />
+        </td>
+        <td>
+          <select class="cell-input" onchange="updateField(${p.id}, 'status', this.value)">
+            <option value="in_stock" ${p.status !== 'out_of_stock' ? 'selected' : ''}>Còn hàng</option>
+            <option value="out_of_stock" ${p.status === 'out_of_stock' ? 'selected' : ''}>Hết hàng</option>
+          </select>
+        </td>
+        <td>
+          <select class="cell-input" onchange="updateField(${p.id}, 'badge', this.value)">
+            <option value="" ${!p.badge ? 'selected' : ''}>Không</option>
+            <option value="hot" ${p.badge === 'hot' ? 'selected' : ''}>Hot</option>
+            <option value="new" ${p.badge === 'new' ? 'selected' : ''}>Mới</option>
+            <option value="best" ${p.badge === 'best' ? 'selected' : ''}>Bán chạy</option>
+          </select>
+        </td>
+        <td><input class="cell-input" placeholder="Ghi chú..." value="${(p.note || "").replace(/"/g, "&quot;")}" oninput="updateField(${p.id}, 'note', this.value)" /></td>
+      </tr>
+    `).join("");
+  }
+
+  async function saveAll() {
+    const phone = document.getElementById("cfgPhone").value.trim() || "0374860580";
+    const newPin = document.getElementById("cfgNewPin").value.trim();
+    DATA.shopName = document.getElementById("cfgShopName").value.trim() || "Squishy Store";
+    DATA.phone = phone;
+    DATA.zalo = phone;
+    if (newPin) DATA.adminPin = newPin;
+
+    if (IS_SERVER) {
+      const res = await fetch("/api/admin/products", {
+        method: "POST",
+        headers: { "Content-Type": "application/json", "X-Admin-Token": TOKEN },
+        body: JSON.stringify({ ...DATA, newPin })
+      });
+      const j = await res.json();
+      if (res.ok && j.ok) {
+        document.getElementById("cfgNewPin").value = "";
+        showToast("Đã lưu thành công lên server!");
+      } else {
+        showToast("Lỗi lưu: " + (j.error || res.status));
+      }
+    } else {
+      localStorage.setItem("squishy_shop_data_v1", JSON.stringify(DATA));
+      document.getElementById("cfgNewPin").value = "";
+      showToast("Đã lưu trên trình duyệt! Bấm 'Tải products.json' để cập nhật lên GitHub.");
+    }
+  }
+
+  function downloadJson() {
+    const blob = new Blob([JSON.stringify(DATA, null, 2)], { type: "application/json" });
+    const a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "products.json";
+    a.click();
+    showToast("Đã tải products.json — thay vào thư mục data/ trên GitHub để đồng bộ mọi khách hàng.");
+  }
+
+  async function logout() {
+    if (IS_SERVER) {
+      await fetch("/api/admin/logout", { method: "POST", headers: { "X-Admin-Token": TOKEN } }).catch(() => {});
+    }
+    TOKEN = "";
+    sessionStorage.removeItem("squishy_admin_token");
+    location.reload();
+  }
+
+  if (TOKEN) loadAdminData();
+</script>
+</body>
+</html>

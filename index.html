@@ -445,6 +445,69 @@
     .float-fb { background: #1877F2; box-shadow: 0 8px 24px rgba(24, 119, 242, 0.28); }
     .float-fb:hover { background: #1261C9; }
 
+    /* Mobile Bottom Bar (hidden on desktop) */
+    .mobile-bar {
+      display: none;
+      position: fixed;
+      left: 0; right: 0; bottom: 0;
+      z-index: 250;
+      background: rgba(255,255,255,0.96);
+      backdrop-filter: blur(12px);
+      border-top: 1px solid var(--line);
+      padding: 8px 12px calc(8px + env(safe-area-inset-bottom, 0px));
+      grid-template-columns: 1fr 1fr 1.25fr;
+      gap: 8px;
+    }
+    .mb-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+      padding: 10px 8px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: center;
+    }
+    .mb-call { background: var(--bg); color: var(--ink); border: 1px solid var(--line); }
+    .mb-fb { background: #1877F2; color: #fff; }
+    .mb-zalo { background: var(--zalo); color: #fff; }
+
+    /* Mobile Optimization */
+    @media (max-width: 640px) {
+      body { padding-bottom: 84px; }
+      .nav { padding: 11px 14px; gap: 8px; }
+      .brand-name { font-size: 15.5px; }
+      .brand-sub { font-size: 11px; }
+      .btn-call { display: none; }
+      .btn-fb, .btn-zalo { padding: 7px 11px; font-size: 12px; }
+      .intro { padding: 20px 14px 14px; gap: 6px; }
+      .intro h1 { font-size: 22px; }
+      .intro p { font-size: 13.5px; }
+      .controls { padding: 12px 14px 4px; gap: 10px; }
+      .search-sort { width: 100%; }
+      .search-wrap { flex: 1; width: auto; min-width: 0; }
+      .sort-select { font-size: 13px; padding: 8px 8px; }
+      .cat-btn { padding: 6px 12px; font-size: 13px; }
+      .grid { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0 12px; margin-top: 12px; }
+      .card { border-radius: 10px; }
+      .card-body { padding: 10px; gap: 3px; }
+      .card-cat { font-size: 10.5px; }
+      .card-title { font-size: 13.5px; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+      .price-now { font-size: 15px; }
+      .price-ask { font-size: 12.5px; }
+      .btn-card { padding: 9px 8px; font-size: 12.5px; margin-top: 8px; }
+      .float-stack { display: none; }
+      .mobile-bar { display: grid; }
+      .modal-bg { padding: 0; align-items: flex-end; }
+      .modal { border-radius: 18px 18px 0 0; max-height: 90vh; }
+      .modal-img { min-height: 240px; max-height: 44vh; }
+      .modal-info { padding: 18px 16px 24px; }
+      .modal-info h2 { font-size: 19px; }
+      footer { padding: 18px 14px; margin-top: 32px; font-size: 12px; }
+    }
+
     .toast {
       position: fixed;
       left: 50%;
@@ -557,6 +620,12 @@
     Zalo · 0374860580
   </a>
 </div>
+
+<nav class="mobile-bar" aria-label="Liên hệ nhanh">
+  <a class="mb-btn mb-call" id="mbCall" href="tel:0374860580">Gọi ngay</a>
+  <a class="mb-btn mb-fb" id="mbFb" href="https://www.facebook.com/anhduc.ng.121" target="_blank" rel="noopener">Facebook</a>
+  <a class="mb-btn mb-zalo" id="mbZalo" href="https://zalo.me/0374860580" target="_blank" rel="noopener">Nhắn Zalo</a>
+</nav>
 
 <div class="toast" id="toast"></div>
 

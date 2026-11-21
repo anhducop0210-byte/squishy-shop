@@ -188,6 +188,28 @@
     .price-preview { font-size: 11.5px; color: var(--green); font-weight: 600; text-align: right; margin-top: 2px; }
     .upload-lbl { font-size: 11.5px; color: var(--ink-2); text-decoration: underline; cursor: pointer; display: inline-block; margin-top: 4px; }
 
+    /* Mobile card layout for Admin */
+    @media (max-width: 768px) {
+      .topbar { padding: 10px 14px; }
+      .container { padding: 0 12px; margin-top: 14px; }
+      .stats { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .stat-card { padding: 10px 12px; }
+      .stat-card strong { font-size: 20px; }
+      .table-wrap { border: none; background: transparent; overflow: visible; }
+      table, thead, tbody, tr, td { display: block; width: 100%; min-width: 0; }
+      thead { display: none; }
+      tr {
+        background: var(--surface);
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        padding: 12px;
+        margin-bottom: 10px;
+      }
+      td { border: none; padding: 4px 0; }
+      .price-input { width: 100% !important; text-align: left; font-size: 16px; padding: 10px; }
+      .price-preview { text-align: left; }
+    }
+
     .toast {
       position: fixed; left: 50%; bottom: 24px;
       transform: translateX(-50%) translateY(16px);
@@ -223,7 +245,8 @@
       <div class="top-actions">
         <a href="./" target="_blank" class="btn btn-outline">Xem trang Khách</a>
         <button class="btn btn-outline" onclick="downloadJson()">Tải products.json</button>
-        <button class="btn btn-green" onclick="saveAll()">Lưu thay đổi</button>
+        <button class="btn btn-green" onclick="saveAll()">Lưu giá</button>
+        <button class="btn btn-dark" id="publishBtn" style="display:none;" onclick="publishOnline()">Đẩy lên Web (Publish)</button>
         <button class="btn btn-outline" onclick="logout()">Đăng xuất</button>
       </div>
     </div>
@@ -382,7 +405,8 @@
   function openAdminUI() {
     document.getElementById("loginWrap").style.display = "none";
     document.getElementById("adminApp").style.display = "block";
-    document.getElementById("modeBadge").textContent = IS_SERVER ? "Local Server (tự lưu file)" : "Static Web (lưu trình duyệt + tải JSON)";
+    document.getElementById("modeBadge").textContent = IS_SERVER ? "Local Server (tự lưu & publish)" : "Static Web (lưu trình duyệt + tải JSON)";
+    document.getElementById("publishBtn").style.display = IS_SERVER ? "inline-flex" : "none";
     document.getElementById("cfgShopName").value = DATA.shopName || "Squishy Store";
     document.getElementById("cfgPhone").value = DATA.phone || "0374860580";
     updateStats();
@@ -460,7 +484,7 @@
           </select>
         </td>
         <td>
-          <input type="number" step="1000" min="0" class="cell-input price-input" placeholder="50000"
+          <input type="number" inputmode="numeric" step="1000" min="0" class="cell-input price-input" placeholder="Nhập giá (VD: 50000)"
             value="${p.price ?? ''}" oninput="updateField(${p.id}, 'price', this.value)" />
           <div class="price-preview" id="pv_price_${p.id}">${fmtVND(p.price)}</div>
         </td>
@@ -512,6 +536,27 @@
       localStorage.setItem("squishy_shop_data_v1", JSON.stringify(DATA));
       document.getElementById("cfgNewPin").value = "";
       showToast("Đã lưu trên trình duyệt! Bấm 'Tải products.json' để cập nhật lên GitHub.");
+    }
+  }
+
+  async function publishOnline() {
+    await saveAll();
+    const btn = document.getElementById("publishBtn");
+    btn.disabled = true;
+    btn.textContent = "Đang đẩy lên web...";
+    try {
+      const res = await fetch("/api/admin/publish", {
+        method: "POST",
+        headers: { "X-Admin-Token": TOKEN }
+      });
+      const j = await res.json();
+      if (res.ok && j.ok) showToast(j.message);
+      else showToast("Lỗi publish: " + (j.error || res.status));
+    } catch (e) {
+      showToast("Lỗi kết nối server: " + e.message);
+    } finally {
+      btn.disabled = false;
+      btn.textContent = "Đẩy lên Web (Publish)";
     }
   }
 

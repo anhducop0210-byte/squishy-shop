@@ -1,6 +1,7 @@
 import os
 import json
 import secrets
+import subprocess
 from functools import wraps
 from flask import Flask, jsonify, request, send_from_directory
 
@@ -123,6 +124,19 @@ def admin_upload_image(pid):
             break
     save_data(data)
     return jsonify({"ok": True, "image": f"images/{fname}"})
+
+@app.route("/api/admin/publish", methods=["POST"])
+@require_admin
+def admin_publish():
+    try:
+        subprocess.run(["git", "add", "data/products.json", "images/"], cwd=BASE_DIR, check=True, capture_output=True, text=True)
+        st = subprocess.run(["git", "status", "--porcelain"], cwd=BASE_DIR, check=True, capture_output=True, text=True)
+        if st.stdout.strip():
+            subprocess.run(["git", "commit", "-m", "Update prices and products"], cwd=BASE_DIR, check=True, capture_output=True, text=True)
+        push = subprocess.run(["git", "push"], cwd=BASE_DIR, check=True, capture_output=True, text=True)
+        return jsonify({"ok": True, "message": "Đã đẩy giá mới lên web công khai! Chờ ~30 giây để GitHub Pages cập nhật."})
+    except subprocess.CalledProcessError as e:
+        return jsonify({"ok": False, "error": (e.stderr or e.stdout or str(e)).strip()}), 500
 
 if __name__ == "__main__":
     app.run(host="0.0.0.0", port=5000, debug=False)

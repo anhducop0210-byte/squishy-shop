@@ -50,12 +50,17 @@ def serve_data(filename):
 @app.route("/api/products", methods=["GET"])
 def get_public_products():
     data = load_data()
+    # Strip admin-only fields (sourcePrice, cost, etc.) before sending to customers
+    public_products = [
+        {k: v for k, v in p.items() if k not in ("sourcePrice", "costPrice")}
+        for p in data.get("products", [])
+    ]
     return jsonify({
         "shopName": data.get("shopName", "Squishy Store"),
         "phone": data.get("phone", "0374860580"),
         "zalo": data.get("zalo", "0374860580"),
         "facebook": data.get("facebook", "https://www.facebook.com/anhduc.ng.121"),
-        "products": data.get("products", [])
+        "products": public_products
     })
 
 @app.route("/api/admin/login", methods=["POST"])
@@ -83,6 +88,8 @@ def admin_get_products():
         "shopName": data.get("shopName", "Squishy Store"),
         "phone": data.get("phone", "0374860580"),
         "zalo": data.get("zalo", "0374860580"),
+        "facebook": data.get("facebook", "https://www.facebook.com/anhduc.ng.121"),
+        "discountRules": data.get("discountRules", {"under50": 14000, "from50": 16000, "packCost": 0}),
         "products": data.get("products", [])
     })
 
@@ -97,6 +104,8 @@ def admin_save_products():
         data["phone"] = str(body["phone"]).strip() or data["phone"]
     if "zalo" in body:
         data["zalo"] = str(body["zalo"]).strip() or data["zalo"]
+    if "discountRules" in body and isinstance(body["discountRules"], dict):
+        data["discountRules"] = body["discountRules"]
     if "newPin" in body and str(body["newPin"]).strip():
         data["adminPin"] = str(body["newPin"]).strip()
     if "products" in body and isinstance(body["products"], list):

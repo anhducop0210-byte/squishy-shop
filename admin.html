@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Quản Trị Giá — Squishy Store</title>
+  <title>Quản Trị Giá & Biên Lợi Nhuận — Squishy Store</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,7 +16,11 @@
       --ink-3: #8A8A8A;
       --line: #E5E5E0;
       --green: #16A34A;
+      --green-bg: #ECFDF5;
+      --amber: #D97706;
+      --amber-bg: #FFFBEB;
       --danger: #DC2626;
+      --danger-bg: #FEF2F2;
     }
     * { box-sizing: border-box; margin: 0; padding: 0; }
     html { -webkit-font-smoothing: antialiased; }
@@ -27,50 +31,26 @@
       min-height: 100vh;
     }
 
-    .login-wrap {
-      min-height: 100vh;
-      display: grid;
-      place-items: center;
-      padding: 20px;
-    }
+    /* Login */
+    .login-wrap { min-height: 100vh; display: grid; place-items: center; padding: 20px; }
     .login-box {
-      background: var(--surface);
-      border: 1px solid var(--line);
-      padding: 32px 28px;
-      border-radius: 16px;
-      width: 100%;
-      max-width: 380px;
+      background: var(--surface); border: 1px solid var(--line);
+      padding: 32px 28px; border-radius: 16px; width: 100%; max-width: 380px;
     }
     .login-box h1 { font-size: 20px; font-weight: 800; margin-bottom: 6px; letter-spacing: -0.02em; }
     .login-box p { font-size: 13.5px; color: var(--ink-2); margin-bottom: 20px; }
     .pin-input {
-      width: 100%;
-      padding: 12px 14px;
-      text-align: center;
-      font-family: inherit;
-      font-size: 20px;
-      letter-spacing: 8px;
-      font-weight: 700;
-      border-radius: 10px;
-      border: 1px solid var(--line);
-      outline: none;
-      margin-bottom: 12px;
+      width: 100%; padding: 12px 14px; text-align: center; font-family: inherit;
+      font-size: 20px; letter-spacing: 8px; font-weight: 700;
+      border-radius: 10px; border: 1px solid var(--line); outline: none; margin-bottom: 12px;
     }
     .pin-input:focus { border-color: var(--ink); }
+
     .btn {
-      border: 1px solid transparent;
-      border-radius: 8px;
-      padding: 9px 16px;
-      font-family: inherit;
-      font-size: 13.5px;
-      font-weight: 600;
-      cursor: pointer;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-      text-decoration: none;
-      transition: opacity .15s, border-color .15s;
+      border: 1px solid transparent; border-radius: 8px; padding: 8px 14px;
+      font-family: inherit; font-size: 13px; font-weight: 600; cursor: pointer;
+      display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+      text-decoration: none; transition: opacity .15s, border-color .15s;
     }
     .btn-dark { background: var(--ink); color: #fff; }
     .btn-dark:hover { opacity: 0.9; }
@@ -80,16 +60,15 @@
     .btn-outline:hover { border-color: var(--ink); }
     .err-msg { color: var(--danger); font-size: 13px; font-weight: 600; margin-top: 8px; min-height: 18px; }
 
+    /* App */
     .admin-app { display: none; padding-bottom: 84px; }
     .topbar {
       position: sticky; top: 0; z-index: 100;
-      background: rgba(255,255,255,0.94);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid var(--line);
-      padding: 12px 24px;
+      background: rgba(255,255,255,0.95); backdrop-filter: blur(10px);
+      border-bottom: 1px solid var(--line); padding: 12px 24px;
     }
     .topbar-inner {
-      max-width: 1320px; margin: 0 auto;
+      max-width: 1380px; margin: 0 auto;
       display: flex; align-items: center; justify-content: space-between; gap: 12px; flex-wrap: wrap;
     }
     .topbar h2 { font-size: 16px; font-weight: 800; letter-spacing: -0.01em; }
@@ -99,33 +78,41 @@
     }
     .top-actions { display: flex; gap: 8px; flex-wrap: wrap; }
 
-    .container { max-width: 1320px; margin: 20px auto; padding: 0 24px; }
+    /* Tabs */
+    .tabs-bar {
+      max-width: 1380px; margin: 16px auto 0; padding: 0 24px;
+      display: flex; gap: 8px; border-bottom: 1px solid var(--line);
+    }
+    .tab-btn {
+      padding: 10px 18px; border: none; background: transparent;
+      font-family: inherit; font-size: 14px; font-weight: 700; color: var(--ink-3);
+      cursor: pointer; border-bottom: 2px solid transparent; margin-bottom: -1px;
+    }
+    .tab-btn.active { color: var(--ink); border-bottom-color: var(--ink); }
+
+    .container { max-width: 1380px; margin: 18px auto; padding: 0 24px; }
+    .panel { display: none; }
+    .panel.active { display: block; }
 
     .stats {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
-      gap: 12px;
-      margin-bottom: 16px;
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(175px, 1fr));
+      gap: 12px; margin-bottom: 16px;
     }
     .stat-card {
-      background: var(--surface);
-      border-radius: 12px;
-      padding: 14px 16px;
-      border: 1px solid var(--line);
+      background: var(--surface); border-radius: 12px; padding: 14px 16px; border: 1px solid var(--line);
     }
-    .stat-card span { font-size: 12.5px; color: var(--ink-3); font-weight: 500; }
-    .stat-card strong { display: block; font-size: 24px; font-weight: 800; margin-top: 2px; }
+    .stat-card span { font-size: 12px; color: var(--ink-3); font-weight: 600; }
+    .stat-card strong { display: block; font-size: 22px; font-weight: 800; margin-top: 3px; }
+    .stat-card small { font-size: 11.5px; color: var(--ink-2); display: block; margin-top: 2px; }
 
-    .shop-settings {
-      background: var(--surface);
-      border-radius: 12px;
-      padding: 16px;
-      border: 1px solid var(--line);
-      margin-bottom: 16px;
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-      gap: 12px;
-      align-items: end;
+    .box {
+      background: var(--surface); border-radius: 12px; padding: 16px;
+      border: 1px solid var(--line); margin-bottom: 16px;
+    }
+    .box-title { font-size: 14.5px; font-weight: 800; margin-bottom: 12px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 8px; }
+    .form-grid {
+      display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 12px; align-items: end;
     }
     .field label { display: block; font-size: 12px; font-weight: 600; color: var(--ink-2); margin-bottom: 5px; }
     .field input {
@@ -134,98 +121,87 @@
     }
     .field input:focus { border-color: var(--ink); }
 
-    .filter-bar {
-      display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; align-items: center;
-    }
+    .presets { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; padding-top: 12px; border-top: 1px solid #F0F0EC; }
+    .preset-lbl { font-size: 12px; font-weight: 700; color: var(--ink-2); align-self: center; margin-right: 4px; }
+
+    .filter-bar { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; align-items: center; }
     .filter-bar input {
-      flex: 1; min-width: 220px;
-      padding: 9px 13px; border-radius: 8px; border: 1px solid var(--line);
+      flex: 1; min-width: 220px; padding: 9px 13px; border-radius: 8px; border: 1px solid var(--line);
       background: var(--surface); font-family: inherit; font-size: 13.5px; outline: none;
     }
     .filter-bar input:focus { border-color: var(--ink); }
 
     .table-wrap {
-      background: var(--surface);
-      border-radius: 12px;
-      border: 1px solid var(--line);
-      overflow-x: auto;
+      background: var(--surface); border-radius: 12px; border: 1px solid var(--line); overflow-x: auto;
     }
-    table { width: 100%; border-collapse: collapse; min-width: 960px; }
+    table { width: 100%; border-collapse: collapse; min-width: 1080px; }
     th {
-      background: #FAFAF8;
-      text-align: left;
-      padding: 11px 12px;
-      font-size: 12px;
-      font-weight: 700;
-      color: var(--ink-2);
-      border-bottom: 1px solid var(--line);
+      background: #FAFAF8; text-align: left; padding: 11px 10px;
+      font-size: 12px; font-weight: 700; color: var(--ink-2); border-bottom: 1px solid var(--line);
     }
-    td {
-      padding: 10px 12px;
-      border-bottom: 1px solid #F0F0EC;
-      vertical-align: middle;
-    }
+    td { padding: 10px; border-bottom: 1px solid #F0F0EC; vertical-align: middle; font-size: 13.5px; }
     tr:hover td { background: #FCFCFA; }
-    .thumb {
-      width: 58px; height: 58px;
-      object-fit: cover;
-      border-radius: 8px;
-      border: 1px solid var(--line);
-      display: block;
-    }
+    .num { text-align: right; font-variant-numeric: tabular-nums; }
+
+    .thumb { width: 52px; height: 64px; object-fit: cover; border-radius: 7px; border: 1px solid var(--line); display: block; }
     .cell-input {
-      width: 100%;
-      padding: 7px 10px;
-      border-radius: 7px;
-      border: 1px solid var(--line);
-      font-family: inherit;
-      font-size: 13.5px;
-      outline: none;
-      background: #fff;
+      width: 100%; padding: 7px 9px; border-radius: 7px; border: 1px solid var(--line);
+      font-family: inherit; font-size: 13px; outline: none; background: #fff;
     }
     .cell-input:focus { border-color: var(--ink); }
-    .price-input { width: 125px; text-align: right; font-weight: 700; }
-    .price-preview { font-size: 11.5px; color: var(--green); font-weight: 600; text-align: right; margin-top: 2px; }
-    .upload-lbl { font-size: 11.5px; color: var(--ink-2); text-decoration: underline; cursor: pointer; display: inline-block; margin-top: 4px; }
-
-    /* Mobile card layout for Admin */
-    @media (max-width: 768px) {
-      .topbar { padding: 10px 14px; }
-      .container { padding: 0 12px; margin-top: 14px; }
-      .stats { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-      .stat-card { padding: 10px 12px; }
-      .stat-card strong { font-size: 20px; }
-      .table-wrap { border: none; background: transparent; overflow: visible; }
-      table, thead, tbody, tr, td { display: block; width: 100%; min-width: 0; }
-      thead { display: none; }
-      tr {
-        background: var(--surface);
-        border: 1px solid var(--line);
-        border-radius: 12px;
-        padding: 12px;
-        margin-bottom: 10px;
-      }
-      td { border: none; padding: 4px 0; }
-      .price-input { width: 100% !important; text-align: left; font-size: 16px; padding: 10px; }
-      .price-preview { text-align: left; }
+    .price-input { width: 115px; text-align: right; font-weight: 700; }
+    .src-tag {
+      display: inline-block; padding: 3px 8px; border-radius: 6px;
+      background: #F4F3EE; font-weight: 700; font-size: 12.5px; color: var(--ink);
     }
+    .cost-tag { font-size: 12px; color: var(--ink-2); font-weight: 600; margin-top: 3px; }
+    .margin-pill {
+      display: inline-block; padding: 3px 8px; border-radius: 6px; font-size: 12px; font-weight: 700;
+    }
+    .m-good { background: var(--green-bg); color: var(--green); }
+    .m-mid { background: var(--amber-bg); color: var(--amber); }
+    .m-bad { background: var(--danger-bg); color: var(--danger); }
+    .m-none { background: #F3F4F6; color: var(--ink-3); }
+    .upload-lbl { font-size: 11px; color: var(--ink-2); text-decoration: underline; cursor: pointer; display: inline-block; margin-top: 3px; }
+
+    /* Simulator */
+    .sim-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 16px; }
+    @media (max-width: 900px) { .sim-grid { grid-template-columns: 1fr; } }
+    .sim-summary {
+      background: var(--ink); color: #fff; border-radius: 14px; padding: 20px;
+      display: flex; flex-direction: column; gap: 12px;
+    }
+    .sim-row { display: flex; justify-content: space-between; font-size: 14px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.12); }
+    .sim-row.big { font-size: 18px; font-weight: 800; border-bottom: none; padding-top: 4px; }
+    .sim-row.big strong { color: #4ADE80; }
 
     .toast {
       position: fixed; left: 50%; bottom: 24px;
       transform: translateX(-50%) translateY(16px);
-      background: var(--ink); color: #fff;
-      padding: 10px 18px; border-radius: 10px; font-weight: 600; font-size: 13.5px;
-      opacity: 0; pointer-events: none; transition: all .2s; z-index: 400;
+      background: var(--ink); color: #fff; padding: 10px 18px; border-radius: 10px;
+      font-weight: 600; font-size: 13.5px; opacity: 0; pointer-events: none; transition: all .2s; z-index: 400;
     }
     .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+
+    @media (max-width: 768px) {
+      .topbar, .tabs-bar, .container { padding-left: 12px; padding-right: 12px; }
+      .stats { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .stat-card strong { font-size: 18px; }
+      #priceTableWrap { border: none; background: transparent; overflow: visible; }
+      #priceTable, #priceTable thead, #priceTable tbody, #priceTable tr, #priceTable td { display: block; width: 100%; min-width: 0; }
+      #priceTable thead { display: none; }
+      #priceTable tr { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin-bottom: 10px; }
+      #priceTable td { border: none; padding: 4px 0; text-align: left; }
+      .price-input { width: 100% !important; text-align: left; font-size: 15px; padding: 9px; }
+    }
   </style>
 </head>
 <body>
 
 <div class="login-wrap" id="loginWrap">
   <div class="login-box">
-    <h1>Quản trị bảng giá</h1>
-    <p>Nhập mã PIN quản trị để chỉnh sửa giá và thông tin sản phẩm. (Mặc định: <strong>0580</strong>)</p>
+    <h1>Quản trị & Tính lợi nhuận</h1>
+    <p>Khu vực nội bộ chỉ dành cho chủ shop. Nhập mã PIN quản trị (mặc định: <strong>0580</strong>).</p>
     <input type="password" id="pinInput" class="pin-input" placeholder="••••" maxlength="12" />
     <button class="btn btn-dark" style="width:100%;padding:11px;" id="loginBtn">Đăng nhập</button>
     <div class="err-msg" id="loginErr"></div>
@@ -239,7 +215,7 @@
   <div class="topbar">
     <div class="topbar-inner">
       <div style="display:flex;align-items:center;">
-        <h2>Quản trị sản phẩm</h2>
+        <h2>Admin · Squishy Store</h2>
         <span class="mode-badge" id="modeBadge">Đang kết nối...</span>
       </div>
       <div class="top-actions">
@@ -252,59 +228,160 @@
     </div>
   </div>
 
+  <div class="tabs-bar">
+    <button class="tab-btn active" id="tabBtnPricing" onclick="switchTab('pricing')">1. Bảng nhập giá (32 sản phẩm)</button>
+    <button class="tab-btn" id="tabBtnMargin" onclick="switchTab('margin')">2. Tính biên lợi nhuận & Giả lập đơn</button>
+  </div>
+
   <div class="container">
-    <div class="stats">
-      <div class="stat-card"><span>Tổng sản phẩm</span><strong id="stTotal">0</strong></div>
-      <div class="stat-card"><span>Đã nhập giá</span><strong id="stPriced" style="color:var(--green);">0</strong></div>
-      <div class="stat-card"><span>Chưa nhập giá</span><strong id="stUnpriced">0</strong></div>
-      <div class="stat-card"><span>Còn hàng</span><strong id="stInStock">0</strong></div>
+    <!-- TAB 1: PRICING -->
+    <div class="panel active" id="panelPricing">
+      <div class="stats">
+        <div class="stat-card"><span>Tổng sản phẩm</span><strong id="stTotal">0</strong></div>
+        <div class="stat-card"><span>Đã nhập giá bán</span><strong id="stPriced" style="color:var(--green);">0</strong><small id="stUnpricedSub"></small></div>
+        <div class="stat-card"><span>Lãi gộp TB / món</span><strong id="stAvgProfit">0₫</strong><small id="stRuleNote">Trừ 14k (dòng 45k) / 16k (≥50k)</small></div>
+        <div class="stat-card"><span>Biên lợi nhuận TB</span><strong id="stAvgMargin">0%</strong><small id="stWarnSub"></small></div>
+      </div>
+
+      <div class="box">
+        <div class="form-grid">
+          <div class="field"><label>Tên Shop</label><input id="cfgShopName" type="text" /></div>
+          <div class="field"><label>SĐT / Zalo</label><input id="cfgPhone" type="text" /></div>
+          <div class="field"><label>Đổi PIN quản trị (tuỳ chọn)</label><input id="cfgNewPin" type="password" placeholder="Để trống nếu giữ nguyên" /></div>
+          <div><button class="btn btn-dark" style="width:100%;" onclick="saveAll()">Lưu cài đặt & giá</button></div>
+        </div>
+        <div class="presets">
+          <span class="preset-lbl">Điền giá nhanh:</span>
+          <button class="btn btn-outline" onclick="applyPreset('match_source')">Bằng giá cô bán (lãi 14k–16k)</button>
+          <button class="btn btn-outline" onclick="applyPreset('plus20')">Giá nhập + 20k</button>
+          <button class="btn btn-outline" onclick="applyPreset('margin30')">Đạt biên lãi 30%</button>
+          <button class="btn btn-dark" onclick="applyPreset('smart9k')">Chiến lược đuôi 9k tối ưu</button>
+        </div>
+      </div>
+
+      <div class="filter-bar">
+        <input id="adminSearch" type="text" placeholder="Tìm theo tên sản phẩm..." oninput="renderTable()" />
+        <select id="adminFilter" class="cell-input" style="width:auto;" onchange="renderTable()">
+          <option value="all">Tất cả (32)</option>
+          <option value="unpriced">Chưa nhập giá</option>
+          <option value="priced">Đã nhập giá</option>
+          <option value="low_margin">Biên lãi thấp (&lt;20%)</option>
+          <option value="out_of_stock">Hết hàng</option>
+        </select>
+      </div>
+
+      <div class="table-wrap" id="priceTableWrap">
+        <table id="priceTable">
+          <thead>
+            <tr>
+              <th style="width:36px;">#</th>
+              <th style="width:70px;">Ảnh</th>
+              <th>Tên sản phẩm</th>
+              <th style="width:130px;">Danh mục</th>
+              <th style="width:128px;">Giá ảnh gốc / Nhập</th>
+              <th style="width:130px;">Giá bán (VNĐ)</th>
+              <th style="width:130px;">Lãi gộp &amp; Biên %</th>
+              <th style="width:110px;">Trạng thái</th>
+              <th style="width:95px;">Nhãn</th>
+              <th style="width:140px;">Ghi chú</th>
+            </tr>
+          </thead>
+          <tbody id="adminTbody"></tbody>
+        </table>
+      </div>
     </div>
 
-    <div class="shop-settings">
-      <div class="field">
-        <label>Tên Shop</label>
-        <input id="cfgShopName" type="text" />
+    <!-- TAB 2: PROFIT MARGIN & SIMULATOR -->
+    <div class="panel" id="panelMargin">
+      <div class="box">
+        <div class="box-title">
+          <span>Chính sách chiết khấu từ cô chủ &amp; Chi phí biến đổi (Admin-Only)</span>
+          <span style="font-size:12px;font-weight:500;color:var(--ink-2);">Theo chốt mới nhất: Dòng 45k giảm 14k · Dòng ≥50k giảm 16k</span>
+        </div>
+        <div class="form-grid">
+          <div class="field">
+            <label>Cô giảm cho dòng dưới 50k (45k) — VNĐ</label>
+            <input type="number" step="1000" id="ruleUnder50" oninput="onRuleChange()" />
+          </div>
+          <div class="field">
+            <label>Cô giảm cho dòng từ 50k trở lên — VNĐ</label>
+            <input type="number" step="1000" id="ruleFrom50" oninput="onRuleChange()" />
+          </div>
+          <div class="field">
+            <label>Chi phí đóng gói / túi / chống sốc mỗi món — VNĐ</label>
+            <input type="number" step="500" id="rulePackCost" oninput="onRuleChange()" />
+          </div>
+          <div>
+            <button class="btn btn-green" style="width:100%;" onclick="saveAll()">Lưu cấu hình chiết khấu</button>
+          </div>
+        </div>
       </div>
-      <div class="field">
-        <label>Số điện thoại / Zalo</label>
-        <input id="cfgPhone" type="text" />
-      </div>
-      <div class="field">
-        <label>Đổi mã PIN quản trị (tuỳ chọn)</label>
-        <input id="cfgNewPin" type="password" placeholder="Nhập PIN mới..." />
-      </div>
-      <div>
-        <button class="btn btn-dark" style="width:100%;" onclick="saveAll()">Lưu toàn bộ</button>
-      </div>
-    </div>
 
-    <div class="filter-bar">
-      <input id="adminSearch" type="text" placeholder="Tìm theo tên sản phẩm..." oninput="renderTable()" />
-      <select id="adminFilter" class="cell-input" style="width:auto;" onchange="renderTable()">
-        <option value="all">Tất cả sản phẩm</option>
-        <option value="unpriced">Chưa nhập giá</option>
-        <option value="priced">Đã nhập giá</option>
-        <option value="out_of_stock">Hết hàng</option>
-      </select>
-    </div>
+      <div class="box">
+        <div class="box-title">Phân tích biên lợi nhuận theo từng phân khúc giá gốc trên ảnh</div>
+        <div class="table-wrap" style="border:none;">
+          <table style="min-width:760px;">
+            <thead>
+              <tr>
+                <th>Phân khúc ảnh gốc</th>
+                <th class="num">Số mẫu</th>
+                <th class="num">Cô giảm</th>
+                <th class="num">Giá nhập / món</th>
+                <th class="num">Giá vốn (+đóng gói)</th>
+                <th class="num">Giá bán TB hiện tại</th>
+                <th class="num">Lãi ròng / món</th>
+                <th class="num">Biên lãi (%)</th>
+                <th class="num">ROI trên vốn (%)</th>
+              </tr>
+            </thead>
+            <tbody id="tierTbody"></tbody>
+          </table>
+        </div>
+      </div>
 
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th style="width:42px;">#</th>
-            <th style="width:80px;">Ảnh</th>
-            <th>Tên sản phẩm</th>
-            <th style="width:145px;">Danh mục</th>
-            <th style="width:145px;">Giá bán (VNĐ)</th>
-            <th style="width:125px;">Giá cũ</th>
-            <th style="width:120px;">Trạng thái</th>
-            <th style="width:110px;">Nhãn</th>
-            <th style="width:170px;">Ghi chú</th>
-          </tr>
-        </thead>
-        <tbody id="adminTbody"></tbody>
-      </table>
+      <div class="sim-grid">
+        <div class="box" style="margin-bottom:0;">
+          <div class="box-title">
+            <span>Giả lập đơn hàng / doanh số dự kiến</span>
+            <button class="btn btn-outline" onclick="resetSim()">Đặt mẫu thử (30 món)</button>
+          </div>
+          <div class="table-wrap" style="border:none;">
+            <table style="min-width:460px;">
+              <thead>
+                <tr>
+                  <th>Phân khúc giá gốc</th>
+                  <th class="num">Giá nhập</th>
+                  <th class="num">Giá bán TB</th>
+                  <th class="num" style="width:110px;">SL bán dự kiến</th>
+                  <th class="num">Lãi dự kiến</th>
+                </tr>
+              </thead>
+              <tbody id="simTbody"></tbody>
+            </table>
+          </div>
+          <div class="form-grid" style="margin-top:14px;padding-top:12px;border-top:1px solid #F0F0EC;">
+            <div class="field">
+              <label>Tổng tiền hỗ trợ ship Hà Nội / giảm combo (VNĐ)</label>
+              <input type="number" step="5000" id="simExtraCost" value="0" oninput="renderSimSummary()" />
+            </div>
+            <div class="field">
+              <label>Chi phí quảng cáo / chạy bài (nếu có) — VNĐ</label>
+              <input type="number" step="10000" id="simAdsCost" value="0" oninput="renderSimSummary()" />
+            </div>
+          </div>
+        </div>
+
+        <div class="sim-summary">
+          <div style="font-size:15px;font-weight:800;letter-spacing:-0.01em;">Kết quả lợi nhuận dự kiến</div>
+          <div class="sim-row"><span>Tổng số sản phẩm bán ra</span><strong id="simTotalQty">0 món</strong></div>
+          <div class="sim-row"><span>Tổng doanh thu</span><strong id="simRevenue">0₫</strong></div>
+          <div class="sim-row"><span>Tổng tiền vốn nhập hàng từ cô</span><strong id="simCogs">0₫</strong></div>
+          <div class="sim-row"><span>Chi phí đóng gói + ship/combo + ads</span><strong id="simOtherCost">0₫</strong></div>
+          <div class="sim-row big"><span>Lãi ròng thực nhận</span><strong id="simNetProfit">0₫</strong></div>
+          <div class="sim-row" style="border:none;padding-bottom:0;"><span>Biên lợi nhuận ròng</span><strong id="simNetMargin">0%</strong></div>
+          <div class="sim-row" style="border:none;padding-bottom:0;"><span>Tỷ suất sinh lời trên vốn (ROI)</span><strong id="simRoi">0%</strong></div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
@@ -313,21 +390,63 @@
 
 <script>
   const CATS = ["Cheese & Bơ", "Trái Cây", "Đồ Ăn & Khoai", "Khổng Lồ", "Bóng Nổ", "Độc Lạ"];
+  const SMART_9K = { 45000: 49000, 50000: 55000, 55000: 59000, 60000: 65000, 65000: 69000, 80000: 89000, 100000: 115000, 120000: 135000 };
+
   let TOKEN = sessionStorage.getItem("squishy_admin_token") || "";
   let IS_SERVER = false;
-  let DATA = { shopName: "Squishy Store", phone: "0374860580", zalo: "0374860580", adminPin: "0580", products: [] };
+  let DATA = {
+    shopName: "Squishy Store", phone: "0374860580", zalo: "0374860580",
+    facebook: "https://www.facebook.com/anhduc.ng.121", adminPin: "0580",
+    discountRules: { under50: 14000, from50: 16000, packCost: 0 },
+    products: []
+  };
+  let SIM_QTY = { 45000: 6, 50000: 6, 55000: 4, 60000: 8, 65000: 3, 80000: 1, 100000: 1, 120000: 1 };
 
   function showToast(msg) {
     const t = document.getElementById("toast");
     t.textContent = msg;
     t.classList.add("show");
     clearTimeout(window._t);
-    window._t = setTimeout(() => t.classList.remove("show"), 2600);
+    window._t = setTimeout(() => t.classList.remove("show"), 2700);
   }
 
   function fmtVND(v) {
-    if (!v || isNaN(Number(v)) || Number(v) <= 0) return "Chưa có giá";
-    return Number(v).toLocaleString("vi-VN") + "₫";
+    if (v === null || v === undefined || isNaN(Number(v))) return "—";
+    return Math.round(Number(v)).toLocaleString("vi-VN") + "₫";
+  }
+
+  function getDiscount(srcPrice) {
+    const r = DATA.discountRules || { under50: 14000, from50: 16000, packCost: 0 };
+    return Number(srcPrice) < 50000 ? Number(r.under50 || 0) : Number(r.from50 || 0);
+  }
+
+  function getCost(p) {
+    const src = Number(p.sourcePrice || 0);
+    if (!src) return 0;
+    return Math.max(0, src - getDiscount(src));
+  }
+
+  function getTotalUnitCost(p) {
+    const pack = Number((DATA.discountRules && DATA.discountRules.packCost) || 0);
+    return getCost(p) + pack;
+  }
+
+  function getProfitInfo(p) {
+    const sell = Number(p.price || 0);
+    const cost = getTotalUnitCost(p);
+    if (!sell || sell <= 0) return { hasPrice: false, profit: 0, margin: 0, roi: 0 };
+    const profit = sell - cost;
+    const margin = (profit / sell) * 100;
+    const roi = cost > 0 ? (profit / cost) * 100 : 0;
+    return { hasPrice: true, profit, margin, roi };
+  }
+
+  function switchTab(tab) {
+    document.getElementById("tabBtnPricing").classList.toggle("active", tab === "pricing");
+    document.getElementById("tabBtnMargin").classList.toggle("active", tab === "margin");
+    document.getElementById("panelPricing").classList.toggle("active", tab === "pricing");
+    document.getElementById("panelMargin").classList.toggle("active", tab === "margin");
+    if (tab === "margin") renderMarginAnalytics();
   }
 
   async function doLogin() {
@@ -352,18 +471,9 @@
       }
     } catch (_) {}
 
-    // Static / GitHub Pages fallback
     const rawLocal = localStorage.getItem("squishy_shop_data_v1");
-    let baseData = null;
-    if (rawLocal) {
-      try { baseData = JSON.parse(rawLocal); } catch (_) {}
-    }
-    if (!baseData) {
-      const r = await fetch("./data/products.json");
-      baseData = await r.json();
-    }
-    const expectedPin = String(baseData.adminPin || "0580");
-    if (pin !== expectedPin) {
+    let baseData = rawLocal ? JSON.parse(rawLocal) : await (await fetch("./data/products.json")).json();
+    if (pin !== String(baseData.adminPin || "0580")) {
       document.getElementById("loginErr").textContent = "Sai mã PIN quản trị!";
       return;
     }
@@ -371,6 +481,7 @@
     TOKEN = "static-ok";
     sessionStorage.setItem("squishy_admin_token", TOKEN);
     DATA = baseData;
+    if (!DATA.discountRules) DATA.discountRules = { under50: 14000, from50: 16000, packCost: 0 };
     openAdminUI();
   }
 
@@ -383,6 +494,7 @@
       if (res.ok) {
         IS_SERVER = true;
         DATA = await res.json();
+        if (!DATA.discountRules) DATA.discountRules = { under50: 14000, from50: 16000, packCost: 0 };
         openAdminUI();
         return;
       }
@@ -392,11 +504,10 @@
         return;
       }
     } catch (_) {}
-
     if (TOKEN === "static-ok") {
       const rawLocal = localStorage.getItem("squishy_shop_data_v1");
-      if (rawLocal) DATA = JSON.parse(rawLocal);
-      else DATA = await (await fetch("./data/products.json")).json();
+      DATA = rawLocal ? JSON.parse(rawLocal) : await (await fetch("./data/products.json")).json();
+      if (!DATA.discountRules) DATA.discountRules = { under50: 14000, from50: 16000, packCost: 0 };
       IS_SERVER = false;
       openAdminUI();
     }
@@ -405,22 +516,77 @@
   function openAdminUI() {
     document.getElementById("loginWrap").style.display = "none";
     document.getElementById("adminApp").style.display = "block";
-    document.getElementById("modeBadge").textContent = IS_SERVER ? "Local Server (tự lưu & publish)" : "Static Web (lưu trình duyệt + tải JSON)";
+    document.getElementById("modeBadge").textContent = IS_SERVER ? "Local Server (tự lưu & publish)" : "Static Web (lưu trình duyệt)";
     document.getElementById("publishBtn").style.display = IS_SERVER ? "inline-flex" : "none";
     document.getElementById("cfgShopName").value = DATA.shopName || "Squishy Store";
     document.getElementById("cfgPhone").value = DATA.phone || "0374860580";
+    document.getElementById("ruleUnder50").value = DATA.discountRules.under50 ?? 14000;
+    document.getElementById("ruleFrom50").value = DATA.discountRules.from50 ?? 16000;
+    document.getElementById("rulePackCost").value = DATA.discountRules.packCost ?? 0;
     updateStats();
     renderTable();
+    renderMarginAnalytics();
+  }
+
+  function onRuleChange() {
+    DATA.discountRules = {
+      under50: Number(document.getElementById("ruleUnder50").value || 0),
+      from50: Number(document.getElementById("ruleFrom50").value || 0),
+      packCost: Number(document.getElementById("rulePackCost").value || 0)
+    };
+    updateStats();
+    renderTable();
+    renderMarginAnalytics();
+  }
+
+  function applyPreset(mode) {
+    DATA.products.forEach(p => {
+      const src = Number(p.sourcePrice || 0);
+      const cost = getTotalUnitCost(p);
+      if (mode === "match_source") p.price = src;
+      else if (mode === "plus20") p.price = Math.ceil((cost + 20000) / 1000) * 1000;
+      else if (mode === "margin30") p.price = Math.ceil((cost / 0.7) / 1000) * 1000;
+      else if (mode === "smart9k") p.price = SMART_9K[src] || Math.ceil((cost + 18000) / 1000) * 1000;
+    });
+    updateStats();
+    renderTable();
+    renderMarginAnalytics();
+    showToast("Đã điền giá mẫu! Xem lại biên lãi rồi bấm 'Lưu giá' hoặc 'Đẩy lên Web'.");
   }
 
   function updateStats() {
     const total = DATA.products.length;
-    const priced = DATA.products.filter(p => p.price && Number(p.price) > 0).length;
-    const instock = DATA.products.filter(p => p.status !== "out_of_stock").length;
+    const pricedItems = DATA.products.filter(p => p.price && Number(p.price) > 0);
+    const r = DATA.discountRules || { under50: 14000, from50: 16000 };
     document.getElementById("stTotal").textContent = total;
-    document.getElementById("stPriced").textContent = priced;
-    document.getElementById("stUnpriced").textContent = total - priced;
-    document.getElementById("stInStock").textContent = instock;
+    document.getElementById("stPriced").textContent = `${pricedItems.length} / ${total}`;
+    document.getElementById("stUnpricedSub").textContent = `Còn ${total - pricedItems.length} món chưa có giá`;
+    document.getElementById("stRuleNote").textContent = `Cô trừ ${(r.under50/1000)}k (<50k) / ${(r.from50/1000)}k (≥50k)`;
+
+    if (pricedItems.length) {
+      let sumProfit = 0, sumMargin = 0, lowCnt = 0;
+      pricedItems.forEach(p => {
+        const info = getProfitInfo(p);
+        sumProfit += info.profit;
+        sumMargin += info.margin;
+        if (info.margin < 20) lowCnt++;
+      });
+      document.getElementById("stAvgProfit").textContent = fmtVND(sumProfit / pricedItems.length);
+      document.getElementById("stAvgMargin").textContent = (sumMargin / pricedItems.length).toFixed(1) + "%";
+      document.getElementById("stWarnSub").textContent = lowCnt > 0 ? `Có ${lowCnt} món biên < 20%` : "Tất cả đều biên tốt (≥20%)";
+    } else {
+      document.getElementById("stAvgProfit").textContent = "—";
+      document.getElementById("stAvgMargin").textContent = "—";
+      document.getElementById("stWarnSub").textContent = "Nhập giá để tính tự động";
+    }
+  }
+
+  function marginBadgeHtml(p) {
+    const info = getProfitInfo(p);
+    if (!info.hasPrice) return `<span class="margin-pill m-none">Chưa nhập giá</span>`;
+    const cls = info.profit <= 0 || info.margin < 15 ? "m-bad" : info.margin < 25 ? "m-mid" : "m-good";
+    const sign = info.profit >= 0 ? "+" : "";
+    return `<span class="margin-pill ${cls}">${sign}${fmtVND(info.profit)} (${info.margin.toFixed(1)}%)</span>`;
   }
 
   function updateField(id, field, value) {
@@ -429,8 +595,8 @@
     if (field === "price" || field === "oldPrice") {
       const num = value === "" ? null : Number(value);
       p[field] = (num && num > 0) ? num : null;
-      const pv = document.getElementById(`pv_${field}_${id}`);
-      if (pv) pv.textContent = fmtVND(p[field]);
+      const mb = document.getElementById(`mb_${id}`);
+      if (mb) mb.innerHTML = marginBadgeHtml(p);
     } else {
       p[field] = value;
     }
@@ -438,24 +604,16 @@
   }
 
   async function uploadImg(id, input) {
-    if (!input.files || !input.files[0]) return;
-    if (!IS_SERVER) {
-      showToast("Đổi ảnh trực tiếp chỉ hỗ trợ khi chạy local server (START_WEB.bat).");
-      return;
-    }
+    if (!input.files || !input.files[0] || !IS_SERVER) return;
     const fd = new FormData();
     fd.append("file", input.files[0]);
-    const res = await fetch(`/api/admin/upload/${id}`, {
-      method: "POST",
-      headers: { "X-Admin-Token": TOKEN },
-      body: fd
-    });
+    const res = await fetch(`/api/admin/upload/${id}`, { method: "POST", headers: { "X-Admin-Token": TOKEN }, body: fd });
     const j = await res.json();
     if (j.ok) {
       const p = DATA.products.find(x => x.id === id);
       if (p) p.image = j.image + "?t=" + Date.now();
       renderTable();
-      showToast(`Đã cập nhật ảnh cho sản phẩm #${id}`);
+      showToast(`Đã cập nhật ảnh mới cho #${id}`);
     }
   }
 
@@ -466,6 +624,10 @@
       if (q && !p.name.toLowerCase().includes(q)) return false;
       if (flt === "unpriced" && p.price && Number(p.price) > 0) return false;
       if (flt === "priced" && (!p.price || Number(p.price) <= 0)) return false;
+      if (flt === "low_margin") {
+        const info = getProfitInfo(p);
+        if (!info.hasPrice || info.margin >= 20) return false;
+      }
       if (flt === "out_of_stock" && p.status !== "out_of_stock") return false;
       return true;
     });
@@ -484,14 +646,14 @@
           </select>
         </td>
         <td>
-          <input type="number" inputmode="numeric" step="1000" min="0" class="cell-input price-input" placeholder="Nhập giá (VD: 50000)"
-            value="${p.price ?? ''}" oninput="updateField(${p.id}, 'price', this.value)" />
-          <div class="price-preview" id="pv_price_${p.id}">${fmtVND(p.price)}</div>
+          <span class="src-tag">Ảnh: ${fmtVND(p.sourcePrice)}</span>
+          <div class="cost-tag">Nhập: <strong>${fmtVND(getCost(p))}</strong></div>
         </td>
         <td>
-          <input type="number" step="1000" min="0" class="cell-input price-input" style="color:var(--ink-3);width:110px;" placeholder="Giá gạch"
-            value="${p.oldPrice ?? ''}" oninput="updateField(${p.id}, 'oldPrice', this.value)" />
+          <input type="number" inputmode="numeric" step="1000" min="0" class="cell-input price-input" placeholder="Nhập giá..."
+            value="${p.price ?? ''}" oninput="updateField(${p.id}, 'price', this.value)" />
         </td>
+        <td id="mb_${p.id}">${marginBadgeHtml(p)}</td>
         <td>
           <select class="cell-input" onchange="updateField(${p.id}, 'status', this.value)">
             <option value="in_stock" ${p.status !== 'out_of_stock' ? 'selected' : ''}>Còn hàng</option>
@@ -509,6 +671,102 @@
         <td><input class="cell-input" placeholder="Ghi chú..." value="${(p.note || "").replace(/"/g, "&quot;")}" oninput="updateField(${p.id}, 'note', this.value)" /></td>
       </tr>
     `).join("");
+  }
+
+  function getTiers() {
+    const map = {};
+    DATA.products.forEach(p => {
+      const sp = Number(p.sourcePrice || 0);
+      if (!map[sp]) map[sp] = [];
+      map[sp].push(p);
+    });
+    return Object.keys(map).map(Number).sort((a, b) => a - b).map(sp => {
+      const items = map[sp];
+      const disc = getDiscount(sp);
+      const cost = Math.max(0, sp - disc);
+      const pack = Number((DATA.discountRules && DATA.discountRules.packCost) || 0);
+      const totalCost = cost + pack;
+      const priced = items.filter(x => x.price && Number(x.price) > 0);
+      const avgSell = priced.length ? priced.reduce((s, x) => s + Number(x.price), 0) / priced.length : 0;
+      const profit = avgSell > 0 ? avgSell - totalCost : 0;
+      const margin = avgSell > 0 ? (profit / avgSell) * 100 : 0;
+      const roi = avgSell > 0 && totalCost > 0 ? (profit / totalCost) * 100 : 0;
+      return { sp, count: items.length, disc, cost, totalCost, avgSell, profit, margin, roi };
+    });
+  }
+
+  function renderMarginAnalytics() {
+    const tiers = getTiers();
+    document.getElementById("tierTbody").innerHTML = tiers.map(t => {
+      const cls = !t.avgSell ? "m-none" : (t.profit <= 0 || t.margin < 15) ? "m-bad" : t.margin < 25 ? "m-mid" : "m-good";
+      return `
+        <tr>
+          <td><strong>${fmtVND(t.sp)}</strong></td>
+          <td class="num">${t.count}</td>
+          <td class="num" style="color:var(--green);">−${fmtVND(t.disc)}</td>
+          <td class="num"><strong>${fmtVND(t.cost)}</strong></td>
+          <td class="num">${fmtVND(t.totalCost)}</td>
+          <td class="num">${t.avgSell ? fmtVND(t.avgSell) : "Chưa nhập"}</td>
+          <td class="num">${t.avgSell ? `<span class="margin-pill ${cls}">${t.profit >= 0 ? '+' : ''}${fmtVND(t.profit)}</span>` : "—"}</td>
+          <td class="num"><strong>${t.avgSell ? t.margin.toFixed(1) + "%" : "—"}</strong></td>
+          <td class="num">${t.avgSell ? t.roi.toFixed(1) + "%" : "—"}</td>
+        </tr>`;
+    }).join("");
+
+    document.getElementById("simTbody").innerHTML = tiers.map(t => {
+      const q = SIM_QTY[t.sp] ?? 0;
+      const effSell = t.avgSell || SMART_9K[t.sp] || t.sp;
+      const lineProfit = q * (effSell - t.totalCost);
+      return `
+        <tr>
+          <td><strong>Nhóm ${fmtVND(t.sp)}</strong> <span style="font-size:11.5px;color:var(--ink-3);">(${t.count} mẫu)</span></td>
+          <td class="num">${fmtVND(t.cost)}</td>
+          <td class="num">${fmtVND(effSell)} ${!t.avgSell ? '<span style="font-size:10.5px;color:var(--ink-3);">(gợi ý)</span>' : ''}</td>
+          <td class="num"><input type="number" min="0" class="cell-input" style="width:76px;text-align:right;" value="${q}" oninput="setSimQty(${t.sp}, this.value)" /></td>
+          <td class="num" style="font-weight:700;color:var(--green);" id="sim_lp_${t.sp}">${fmtVND(lineProfit)}</td>
+        </tr>`;
+    }).join("");
+    renderSimSummary();
+  }
+
+  function setSimQty(sp, val) {
+    SIM_QTY[sp] = Math.max(0, Number(val || 0));
+    renderMarginAnalytics();
+  }
+
+  function resetSim() {
+    SIM_QTY = { 45000: 6, 50000: 6, 55000: 4, 60000: 8, 65000: 3, 80000: 1, 100000: 1, 120000: 1 };
+    document.getElementById("simExtraCost").value = 0;
+    document.getElementById("simAdsCost").value = 0;
+    renderMarginAnalytics();
+  }
+
+  function renderSimSummary() {
+    const tiers = getTiers();
+    const pack = Number((DATA.discountRules && DATA.discountRules.packCost) || 0);
+    let qty = 0, rev = 0, cogs = 0;
+    tiers.forEach(t => {
+      const q = SIM_QTY[t.sp] ?? 0;
+      const effSell = t.avgSell || SMART_9K[t.sp] || t.sp;
+      qty += q;
+      rev += q * effSell;
+      cogs += q * t.cost;
+    });
+    const extra = Number(document.getElementById("simExtraCost").value || 0);
+    const ads = Number(document.getElementById("simAdsCost").value || 0);
+    const otherCost = qty * pack + extra + ads;
+    const netProfit = rev - cogs - otherCost;
+    const netMargin = rev > 0 ? (netProfit / rev) * 100 : 0;
+    const roi = (cogs + otherCost) > 0 ? (netProfit / (cogs + otherCost)) * 100 : 0;
+
+    document.getElementById("simTotalQty").textContent = qty + " món";
+    document.getElementById("simRevenue").textContent = fmtVND(rev);
+    document.getElementById("simCogs").textContent = fmtVND(cogs);
+    document.getElementById("simOtherCost").textContent = fmtVND(otherCost);
+    document.getElementById("simNetProfit").textContent = fmtVND(netProfit);
+    document.getElementById("simNetProfit").style.color = netProfit >= 0 ? "#4ADE80" : "#F87171";
+    document.getElementById("simNetMargin").textContent = netMargin.toFixed(1) + "%";
+    document.getElementById("simRoi").textContent = roi.toFixed(1) + "%";
   }
 
   async function saveAll() {
@@ -535,7 +793,7 @@
     } else {
       localStorage.setItem("squishy_shop_data_v1", JSON.stringify(DATA));
       document.getElementById("cfgNewPin").value = "";
-      showToast("Đã lưu trên trình duyệt! Bấm 'Tải products.json' để cập nhật lên GitHub.");
+      showToast("Đã lưu trên trình duyệt! Bấm 'Tải products.json' để đồng bộ GitHub.");
     }
   }
 
@@ -545,10 +803,7 @@
     btn.disabled = true;
     btn.textContent = "Đang đẩy lên web...";
     try {
-      const res = await fetch("/api/admin/publish", {
-        method: "POST",
-        headers: { "X-Admin-Token": TOKEN }
-      });
+      const res = await fetch("/api/admin/publish", { method: "POST", headers: { "X-Admin-Token": TOKEN } });
       const j = await res.json();
       if (res.ok && j.ok) showToast(j.message);
       else showToast("Lỗi publish: " + (j.error || res.status));
@@ -566,7 +821,7 @@
     a.href = URL.createObjectURL(blob);
     a.download = "products.json";
     a.click();
-    showToast("Đã tải products.json — thay vào thư mục data/ trên GitHub để đồng bộ mọi khách hàng.");
+    showToast("Đã tải products.json");
   }
 
   async function logout() {

@@ -14,7 +14,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 50000
     },
     {
       "id": 2,
@@ -25,7 +26,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 60000
     },
     {
       "id": 3,
@@ -36,7 +38,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 45000
     },
     {
       "id": 4,
@@ -47,7 +50,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 60000
     },
     {
       "id": 5,
@@ -58,7 +62,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 60000
     },
     {
       "id": 6,
@@ -69,7 +74,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 60000
     },
     {
       "id": 7,
@@ -80,7 +86,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 80000
     },
     {
       "id": 8,
@@ -91,7 +98,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 45000
     },
     {
       "id": 9,
@@ -102,7 +110,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 60000
     },
     {
       "id": 10,
@@ -113,7 +122,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 45000
     },
     {
       "id": 11,
@@ -124,7 +134,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 45000
     },
     {
       "id": 12,
@@ -135,7 +146,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 60000
     },
     {
       "id": 13,
@@ -146,7 +158,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 60000
     },
     {
       "id": 14,
@@ -157,7 +170,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 120000
     },
     {
       "id": 15,
@@ -168,7 +182,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 50000
     },
     {
       "id": 16,
@@ -179,7 +194,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 120000
     },
     {
       "id": 17,
@@ -190,7 +206,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 100000
     },
     {
       "id": 18,
@@ -201,7 +218,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 100000
     },
     {
       "id": 19,
@@ -212,7 +230,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 120000
     },
     {
       "id": 20,
@@ -223,7 +242,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 45000
     },
     {
       "id": 21,
@@ -234,7 +254,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 50000
     },
     {
       "id": 22,
@@ -245,7 +266,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 50000
     },
     {
       "id": 23,
@@ -256,7 +278,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 65000
     },
     {
       "id": 24,
@@ -267,7 +290,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 65000
     },
     {
       "id": 25,
@@ -278,7 +302,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 55000
     },
     {
       "id": 26,
@@ -289,7 +314,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 65000
     },
     {
       "id": 27,
@@ -300,7 +326,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 50000
     },
     {
       "id": 28,
@@ -311,7 +338,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 55000
     },
     {
       "id": 29,
@@ -322,7 +350,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 55000
     },
     {
       "id": 30,
@@ -333,7 +362,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 60000
     },
     {
       "id": 31,
@@ -344,7 +374,8 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 55000
     },
     {
       "id": 32,
@@ -355,7 +386,13 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": ""
+      "note": "",
+      "sourcePrice": 50000
     }
-  ]
+  ],
+  "discountRules": {
+    "under50": 14000,
+    "from50": 16000,
+    "packCost": 0
+  }
 }

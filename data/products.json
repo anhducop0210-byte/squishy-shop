@@ -3,7 +3,6 @@
   "phone": "0374860580",
   "zalo": "0374860580",
   "facebook": "https://www.facebook.com/anhduc.ng.121",
-  "adminPin": "0580",
   "products": [
     {
       "id": 1,
@@ -14,8 +13,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 50000
+      "note": ""
     },
     {
       "id": 2,
@@ -26,8 +24,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 60000
+      "note": ""
     },
     {
       "id": 3,
@@ -38,8 +35,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 45000
+      "note": ""
     },
     {
       "id": 4,
@@ -50,8 +46,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 60000
+      "note": ""
     },
     {
       "id": 5,
@@ -62,8 +57,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 60000
+      "note": ""
     },
     {
       "id": 6,
@@ -74,8 +68,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 60000
+      "note": ""
     },
     {
       "id": 7,
@@ -86,8 +79,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 80000
+      "note": ""
     },
     {
       "id": 8,
@@ -98,8 +90,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 45000
+      "note": ""
     },
     {
       "id": 9,
@@ -110,8 +101,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 60000
+      "note": ""
     },
     {
       "id": 10,
@@ -122,8 +112,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 45000
+      "note": ""
     },
     {
       "id": 11,
@@ -134,8 +123,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 45000
+      "note": ""
     },
     {
       "id": 12,
@@ -146,8 +134,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 60000
+      "note": ""
     },
     {
       "id": 13,
@@ -158,8 +145,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 60000
+      "note": ""
     },
     {
       "id": 14,
@@ -170,8 +156,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 120000
+      "note": ""
     },
     {
       "id": 15,
@@ -182,8 +167,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 50000
+      "note": ""
     },
     {
       "id": 16,
@@ -194,8 +178,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 120000
+      "note": ""
     },
     {
       "id": 17,
@@ -206,8 +189,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 100000
+      "note": ""
     },
     {
       "id": 18,
@@ -218,8 +200,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 100000
+      "note": ""
     },
     {
       "id": 19,
@@ -230,8 +211,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 120000
+      "note": ""
     },
     {
       "id": 20,
@@ -242,8 +222,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 45000
+      "note": ""
     },
     {
       "id": 21,
@@ -254,8 +233,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 50000
+      "note": ""
     },
     {
       "id": 22,
@@ -266,8 +244,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 50000
+      "note": ""
     },
     {
       "id": 23,
@@ -278,8 +255,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 65000
+      "note": ""
     },
     {
       "id": 24,
@@ -290,8 +266,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 65000
+      "note": ""
     },
     {
       "id": 25,
@@ -302,8 +277,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 55000
+      "note": ""
     },
     {
       "id": 26,
@@ -314,8 +288,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 65000
+      "note": ""
     },
     {
       "id": 27,
@@ -326,8 +299,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 50000
+      "note": ""
     },
     {
       "id": 28,
@@ -338,8 +310,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 55000
+      "note": ""
     },
     {
       "id": 29,
@@ -350,8 +321,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 55000
+      "note": ""
     },
     {
       "id": 30,
@@ -362,8 +332,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 60000
+      "note": ""
     },
     {
       "id": 31,
@@ -374,8 +343,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 55000
+      "note": ""
     },
     {
       "id": 32,
@@ -386,13 +354,7 @@
       "oldPrice": null,
       "status": "in_stock",
       "badge": "",
-      "note": "",
-      "sourcePrice": 50000
+      "note": ""
     }
-  ],
-  "discountRules": {
-    "under50": 14000,
-    "from50": 16000,
-    "packCost": 0
-  }
+  ]
 }

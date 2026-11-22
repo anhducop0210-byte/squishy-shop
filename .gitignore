@@ -1,0 +1,5 @@
+data/admin_secrets.json
+admin.html
+__pycache__/
+*.pyc
+.vercel
